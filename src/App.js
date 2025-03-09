@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import Navbar from './components/Navbar';
+import Footer from "./components/Footer"; 
+import Register from './pages/Register'
+import ServicePage from './pages/ServicePage'; 
+import AboutUs from './pages/AboutUs';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Register />} /> 
+        <Route path="/service/:id" element={<ServicePage />} />
+        <Route path="/aboutus" element={<AboutUs />} />
+      </Routes>
+      <Footer /> 
+    </>
   );
 }
 
 export default App;
+
+// Footer e Navbar sempre visíveis
+// Organizar a rota das páginas de serviços

@@ -1,0 +1,110 @@
+
+.carousel-container, 
+.portfolio-container {
+  height: 100vh;
+}
+
+.carousel-container {
+  padding: 30px 15px;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #f9f9f9, #e3e3e3);
+  /* border-radius: 10px; */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.portfolio-container {
+  padding: 30px 15px;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #FFFF00, #e3e3e3);
+  /* border-radius: 10px; */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.carousel-title {
+  font-size: 28px;
+  font-weight: 700;
+  /* text-align: left; */
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Cartão */
+.carousel-card {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 85%;
+  margin: auto;
+}
+
+.carousel-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.12);
+}
+
+.card-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card-image-container {
+  width: 100%;
+  height: 140px;
+  overflow: hidden;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.carousel-card:hover .card-image {
+  transform: scale(1.05);
+}
+
+/* Conteúdo do cartão */
+.card-content {
+  padding: 12px;
+  text-align: left;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+}
+
+.card-description {
+  font-size: 14px;
+  color: #555;
+  margin-top: 5px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .carousel-title {
+    font-size: 24px;
+  }
+
+  .card-content {
+    padding: 10px;
+    text-align: center;
+  }
+
+  .card-title {
+    font-size: 16px;
+  }
+
+  .card-description {
+    font-size: 13px;
+  }
+}

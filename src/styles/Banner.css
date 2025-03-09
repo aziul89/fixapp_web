@@ -1,0 +1,44 @@
+.banner {
+    height: 80vh;
+    background: url("") no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    /* color: white; não está funcionando */
+    background-color: #e3e3e3;
+  }
+  
+  .banner-content {
+    max-width: 600px;
+  }
+  
+  .banner h1 {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: black;
+  }
+  
+  .banner p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: black;
+  }
+  
+  .cta-button {
+    background-color: #FFD700;
+    color: white;
+    padding: 12px 24px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .cta-button:hover {
+    background-color: #b69a00;
+  }
+  

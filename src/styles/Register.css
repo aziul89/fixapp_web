@@ -1,0 +1,84 @@
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 100px; /* Espaço para o navbar */
+    padding-bottom: 80px; /* Espaço para o footer */
+    height: 100vh;
+    background: linear-gradient(135deg, #FFFF00, #e3e3e3);
+  }
+  
+  .register-box {
+    background: white;
+    padding: 30px;
+    padding-right: 50px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+  }
+  
+  .register-box h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .input-group {
+    text-align: left;
+    margin-bottom: 15px;
+  }
+  
+  .input-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+  }
+  
+  .input-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Seção de Endereço */
+  .address-section h3 {
+    text-align: left;
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .address-row {
+    display: flex;
+    gap: 40px;
+  }
+  
+  .address-row .input-group {
+    flex: 1;
+  }
+
+  
+  /* Botão de envio */
+  .register-button {
+    width: 50%;
+    padding: 12px;
+    font-size: 18px;
+    border: none;
+    background: #FFD700;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 15px;
+    
+  }
+  
+  .register-button:hover {
+    background: #b69a00;
+  }
+  
