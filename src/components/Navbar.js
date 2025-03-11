@@ -14,7 +14,7 @@ function Navbar() {
       <nav>
         <ul>
           <li><Link to="/">Home</Link></li>
-          <li><Link to="/servicos">Serviços</Link></li>
+          <li><Link to="/servicos">Serviços</Link></li> {/* Ir para a seção de serviços na Home */}
           <li><Link to="/como_funciona">Como funciona</Link></li>
         </ul>
         <button className="navbar-button" onClick={() => navigate("/register")}>Contratar</button>

@@ -1,0 +1,43 @@
+.progress-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+  
+.progress-steps {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: auto;
+    position: relative;
+}
+  
+.step {
+    text-align: center;
+    width: 30%;
+}
+  
+.step .circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ddd;
+    color: black;
+    font-weight: bold;
+    margin: auto;
+    transition: 0.3s;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+}
+  
+.step.active .circle {
+    background: #FC3F75;
+    color: white;
+}
+  
+.step p {
+    font-size: 14px;
+    margin-top: 5px;
+}
+  

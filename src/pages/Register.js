@@ -1,10 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/Register.css";
+import ProgressBar from "../components/ProgressBar";
+
+// ADD impedimento ao ir para a próxima pág sem ter preenchido os campos corretamente
 
 function Register() {
+  const navigate = useNavigate();
+
   return (
     <div className="register-container">
       <div className="register-box">
+        <ProgressBar step={1} /> {/* Adicionando a barra de progresso */}
         <h2>Cadastre-se agora para contratar nossos serviços!</h2>
         <form>
           {/* Nome */}
@@ -25,35 +31,8 @@ function Register() {
             <input type="tel" placeholder="Digite seu telefone" required />
           </div>
 
-          {/* Endereço */}
-          <div className="address-section">
-            <h3>Endereço</h3>
-
-            <div className="input-group">
-              <label>Rua</label>
-              <input type="text" placeholder="Digite o nome da rua" required />
-            </div>
-
-            <div className="input-group">
-              <label>Complemento</label>
-              <input type="text" placeholder="Apto, bloco, etc. (opcional)" />
-            </div>
-
-            <div className="address-row">
-              <div className="input-group">
-                <label>Cidade</label>
-                <input type="text" placeholder="Digite sua cidade" required />
-              </div>
-
-              <div className="input-group">
-                <label>Estado</label>
-                <input type="text" placeholder="Digite seu estado" required />
-              </div>
-            </div>
-          </div>
-
-          {/* Botão de envio */}
-          <button type="submit" className="register-button">Cadastrar</button>
+          {/* Botão de próxima etapa */}
+          <button className="register-button" onClick={() => navigate("/register2")}>Próximo</button>
         </form>
 
         <p className="login-text">
