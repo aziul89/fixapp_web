@@ -1,0 +1,114 @@
+.contact-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #FFFF00, #e3e3e3);
+    padding: 40px;
+}
+
+.contact-content {
+    display: flex;
+    background: #ffffff; 
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    max-width: 450px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Seção do formulário */
+.contact-form {
+    width: 60%;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    
+}
+
+.contact-form-section h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #333;
+    border-bottom: 2px solid #FFD700;
+}
+
+.input-group2 {
+    margin-bottom: 15px;
+}
+
+.input-group2 label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.input-group2 input,
+.input-group2 textarea {
+    width: 100%;
+    max-width: 370px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.input-group2 textarea {
+    resize: none;
+    height: 100px;
+}
+
+/* Botão */
+.contact-button {
+    background-color: #FFD700;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.contact-button:hover {
+    background-color: #b69a00;
+}
+
+/* Seção Pop up */
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 8px;
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  .popup-content {
+    padding: 10px;
+  }
+  
+  /* Animação de fade-in */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  

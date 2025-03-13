@@ -75,6 +75,7 @@
     cursor: pointer;
     transition: 0.3s;
     margin-top: 15px;
+    transition: background 0.3s ease;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
     
   }
@@ -88,5 +89,24 @@
     font-size: 14px;
     margin-top: -10px;
     margin-bottom: 10px;
+  }
+  
+  /* Seção da Senha */
+  .password-group {
+    position: relative;
+  }
+  
+  .toggle-password {
+    position: absolute;
+    right: 2px;
+    top: 70%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;
+    color: #FC3F75;
+  }
+  
+  .toggle-password:hover {
+    color: #333;
   }
   

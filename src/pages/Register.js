@@ -10,7 +10,7 @@ function Register() {
   return (
     <div className="register-container">
       <div className="register-box">
-        <ProgressBar step={1} /> {/* Adicionando a barra de progresso */}
+        <ProgressBar step={1} /> {/* Barra de progresso */}
         <h2>Cadastre-se agora para contratar nossos serviços!</h2>
         <form>
           {/* Nome */}

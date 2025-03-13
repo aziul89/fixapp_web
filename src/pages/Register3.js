@@ -2,19 +2,25 @@ import { Link, useNavigate } from "react-router-dom";
 import "../styles/Register.css";
 import ProgressBar from "../components/ProgressBar";
 
+// ADD validações
+
 function Register3() {
   const navigate = useNavigate();
 
   return (
     <div className="register-container">
       <div className="register-box">
-      <ProgressBar step={3} /> {/* Adicionando a barra de progresso */}
+      <ProgressBar step={3} /> {/* Barra de progresso */}
         <h2>Seu Endereço</h2>
         <form>
 
             {/* Endereço */}
           <div className="address-section">
             
+          <div className="input-group">
+              <label>CEP</label>
+              <input type="number" placeholder="Digite o CEP" required />
+            </div>
 
             <div className="input-group">
               <label>Rua</label>

@@ -6,8 +6,8 @@ import Footer from "./components/Footer";
 import Register from './pages/Register'
 import Register2 from './pages/Register2'
 import Register3 from './pages/Register3';
-import ServicePage from './pages/ServicePage'; 
 import AboutUs from './pages/AboutUs';
+import Contact from './pages/Contact';
 import ScrollToTop from './components/ScrollToTop';
 
 function App() {
@@ -20,8 +20,8 @@ function App() {
         <Route path="/register" element={<Register />} /> 
         <Route path="/register2" element={<Register2 />} />
         <Route path="/register3" element={<Register3 />} />
-        <Route path="/service/:id" element={<ServicePage />} />
         <Route path="/aboutus" element={<AboutUs />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
       <Footer /> 
     </>
