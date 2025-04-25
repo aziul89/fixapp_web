@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../assets/logofix.png";
+import logo from "../assets/newlogo.png";
 import "../styles/Navbar.css"; 
 
 function Navbar() {
@@ -9,7 +9,7 @@ function Navbar() {
     <header className="navbar">
       <div className="logo-container">
         <img src={logo} alt="IdeaFix Logo" className="logo-img" />
-        <h1 className="logo-text">IdeaFix</h1>
+        
       </div>
       <nav>
         <ul>

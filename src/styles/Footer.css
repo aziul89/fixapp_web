@@ -3,7 +3,7 @@
 }
 
 .footer {
-  background-color: #FC3F75;
+  background-color: #ffffff;
   color: white;
   padding: 30px 20px;
   text-align: center;
@@ -20,12 +20,13 @@
 
 .footer-links {
   display: flex;
-  flex-direction: column; 
-  gap: 10px;
+  flex-direction: row; 
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 .footer-links a {
-  color: white;
+  color: #2D3338;
   text-decoration: none;
   font-weight: 300;
   font-size: 14px;
@@ -43,15 +44,15 @@
 }
 
 .footer-social a {
-  color: white;
+  color: #2D3338; 
   transition: 0.3s;
 }
 
 .footer-social a:hover {
-  color: #FFD700;
+  color: #FFD700; 
 }
 
 .footer-rights {
   font-size: 12px;
-  color: #ffffff;
+  color: #2D3338;
 }
