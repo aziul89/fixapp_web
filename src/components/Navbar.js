@@ -8,7 +8,7 @@ function Navbar() {
   return (
     <header className="navbar">
       <div className="logo-container">
-        <img src={logo} alt="IdeaFix Logo" className="logo-img" />
+        <img src={logo} alt="IdeaFix Logo" className="logo-img"  onClick={() => navigate("/")}/>
         
       </div>
       <nav>
