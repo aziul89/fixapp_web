@@ -6,6 +6,7 @@ function Login() {
   const navigate = useNavigate();
   const { login } = useAuth();
 
+  // Ao recarregar não voltar para o "deslogado"
   const handleLogin = (e) => {
     // validar com o backend
     e.preventDefault(); 
