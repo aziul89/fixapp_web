@@ -50,8 +50,10 @@ function Register3() {
             </div>
           </div>
           
-          {/* Botão de finalização */}
-          <button type="submit" className="register-button">Finalizar Cadastro</button>
+          {/* Botão de finalização --> Ir para o Login*/}
+          <button className="register-button" onClick={() => navigate("/login")}>
+            Finalizar Cadastro
+          </button>
         </form>
 
         <p className="login-text">
