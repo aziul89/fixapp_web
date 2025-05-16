@@ -45,8 +45,8 @@ function Navbar() {
       <nav>
         <ul>
           <li><Link to="/">Home</Link></li>
-          <li><Link to="/servicos">Serviços</Link></li>
-          <li><Link to="/como_funciona">Como funciona</Link></li>
+          <li><Link to="/services">Serviços</Link></li>
+          <li><Link to="/como-funciona">Como funciona</Link></li>
         </ul>
 
         {isAuthenticated ? (

@@ -1,41 +1,35 @@
-import React from "react";
 import "../styles/AboutUs.css";
+import logopink from "../assets/newlogo_pink.png"
 
-const AboutUs = () => {
+function AboutUs() {
   return (
-    <div className="about-container">
-      {/* Conteúdo Principal */}
-      <main className="content">
-        <section id="quem-somos" className="section">
-          <h2>Quem Somos</h2>
-          <p>Transformando superfícies com eficiência, beleza e inovação.</p>
-        </section>
+    <div className="aboutus-container">
+      <div className="aboutus-content">
+        <h1>Quem Somos</h1>
+        <p>
+          A <strong>IdeaFix</strong> é uma plataforma digital criada para facilitar a contratação de serviços de aplicação de películas em residências, comércios e veículos. Nosso objetivo é conectar você a profissionais especializados, garantindo conforto, segurança e praticidade sem sair de casa.
+        </p>
+        <p>
+          Trabalhamos com diferentes tipos de películas: envelopamento de móveis, placas, veículos e muito mais. Tudo de forma rápida, intuitiva e digital.
+        </p>
 
-        <section id="compromisso" className="section">
-          <h2>Nosso Compromisso</h2>
-          <p>
-            A nossa empresa é especializada em aplicar películas de alta qualidade em diversas superfícies. Seja para decorar, melhorar a eficiência energética ou garantir mais privacidade, nossos serviços oferecem soluções personalizadas para atender às suas necessidades.
-          </p>
-        </section>
+        <div className="aboutus-image-container">
+        <img src={logopink} alt="Equipe IdeaFix" className="aboutus-image" />
+      </div>
 
-        <section id="o-que-fazemos" className="section">
-          <h2>O que Fazemos</h2>
-          <ul>
-            <li><strong>Decoração:</strong> Transforme o ambiente com películas decorativas exclusivas.</li>
-            <li><strong>Privacidade:</strong> Películas para garantir sua privacidade em qualquer ambiente.</li>
-            <li><strong>Eficiência:</strong> Reduza custos com a aplicação de películas que protegem contra o calor.</li>
-          </ul>
-        </section>
-
-        <section id="solicitar-servico" className="section">
-          <h2>Solicite o Serviço</h2>
-          <p>
-            Agora, você pode solicitar nosso serviço completo diretamente através deste site! Basta preencher o formulário de solicitação, e nossa equipe estará pronta para realizar o trabalho com a máxima qualidade e eficiência.
-          </p>
-        </section>
-      </main>
+        <h2>Uma Iniciativa Universitária</h2>
+        <p>
+          Este projeto foi desenvolvido em parceria com alunos da <strong>Universidade Católica de Pernambuco</strong>, como parte de uma iniciativa educacional que une inovação, tecnologia e impacto social.
+        </p>
+        <p>
+          Nossa missão é proporcionar uma experiência moderna, eficiente e transparente, enquanto valorizamos o aprendizado prático e colaborativo.
+        </p>
+        <p>
+          Acreditamos que juntos podemos transformar o modo como você contrata serviços e ao mesmo tempo impulsionar o desenvolvimento profissional de jovens talentos.
+        </p>
+      </div>
     </div>
   );
-};
+}
 
 export default AboutUs;

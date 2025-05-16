@@ -9,8 +9,10 @@ import Login from './pages/Login'
 import RecuperarSenha from './pages/RecuperarSenha';
 import AboutUs from './pages/AboutUs';
 import Contact from './pages/Contact';
+import ComoFunciona from './pages/ComoFunciona';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import Services from './components/Services';
 import ScrollToTop from './components/ScrollToTop';
 
 function App() {
@@ -27,6 +29,8 @@ function App() {
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/recuperar-senha" element={<RecuperarSenha />} />
+        <Route path="/como-funciona" element={<ComoFunciona />} />
+        <Route path="/services" element={<Services />} />
       </Routes>
       <Footer />
     </>

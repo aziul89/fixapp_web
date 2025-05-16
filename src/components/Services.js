@@ -12,7 +12,7 @@ const responsive = {
   mobile: { breakpoint: { max: 464, min: 0 }, items: 1 }
 };
 
-// Todos os serviços da empresa (esses são exemplos)
+
 const services = [
   { img: "https://img.freepik.com/fotos-premium/trabalhador-de-servico-automovel-aplicando-nano-revestimento-em-um-detalhe-do-carro_179755-10517.jpg?ga=GA1.1.1617786885.1714433104&semt=ais_hybrid&w=740", title: "Sinalização de Veículos", description: "Transforme seu veículo em uma poderosa ferramenta de divulgação. Aplicamos adesivos personalizados com alta durabilidade e acabamento profissional, garantindo visibilidade da sua marca onde quer que vá." },
   { img: "https://img.freepik.com/fotos-premium/cartao-de-nome-startup-company-cartao-de-visita-energetic-orange-color-plastico-bussines-ideia-de-conceito_1020495-51871.jpg?ga=GA1.1.1617786885.1714433104&semt=ais_hybrid&w=740", title: "Placas em Acrílico", description: "Produzimos placas elegantes e resistentes em acrílico, ideais para empresas, consultórios, sinalizações internas e externas. Com acabamento refinado, nossas placas conferem sofisticação e profissionalismo ao seu espaço." },
