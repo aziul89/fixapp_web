@@ -6,6 +6,7 @@ import Register from './pages/Register';
 import Register2 from './pages/Register2';
 import Register3 from './pages/Register3';
 import Login from './pages/Login'
+import RecuperarSenha from './pages/RecuperarSenha';
 import AboutUs from './pages/AboutUs';
 import Contact from './pages/Contact';
 import Navbar from './components/Navbar';
@@ -25,6 +26,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/recuperar-senha" element={<RecuperarSenha />} />
       </Routes>
       <Footer />
     </>

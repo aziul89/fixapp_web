@@ -2,8 +2,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 100px; /* Espaço para o navbar */
-    padding-bottom: 80px; /* Espaço para o footer */
+    padding-top: 120px; /* Espaço para o navbar */
+    padding-bottom: 100px; /* Espaço para o footer */
     height: 100vh;
     background: linear-gradient(135deg, #FC3F75, #e3e3e3);
   }
@@ -109,4 +109,34 @@
   .toggle-password:hover {
     color: #333;
   }
+
+  .forpassword-link {
+    font-size: 15px;
+    color: #3f3e3e;
+  }
+
+  .checkbox-container {
+  display: flex;
+  align-items: flex-start;
+  margin: 15px 0;
+  font-size: 14px;
+  color: #2D3338;
+  gap: 8px;
+}
+
+.checkbox-container input[type="checkbox"] {
+  margin-top: 2px;
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.checkbox-container label a {
+  color: #1a0dab;
+  text-decoration: underline;
+}
+
+.checkbox-container label a:hover {
+  color: #b69a00;
+}
+
   

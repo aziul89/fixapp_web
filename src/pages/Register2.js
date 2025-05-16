@@ -70,7 +70,6 @@ function RegisterPassword() {
           {/* Exibir erro se as senhas forem diferentes */}
           {error && <p className="error-message">{error}</p>}
 
-          {/* Botão de próxima etapa */}
           <button className="register-button" onClick={() => navigate("/register3")}>
             Próximo
           </button>

@@ -38,6 +38,9 @@ function Login() {
         <p className="login-text">
           Não tem uma conta? <Link to="/register" className="login-link">Cadastre-se</Link>
         </p>
+        <p>
+          <Link to="/recuperar-senha" className="forpassword-link">Esqueceu a senha?</Link>
+        </p>
       </div>
     </div>
   );
