@@ -7,6 +7,37 @@ function Register3() {
   const navigate = useNavigate();
   const [acceptedTerms, setAcceptedTerms] = useState(false);
 
+  const [cep, setCep] = useState("");
+  const [rua, setRua] = useState("");
+  const [bairro, setBairro] = useState("");
+  const [cidade, setCidade] = useState("");
+  const [estado, setEstado] = useState("");
+  const [complemento, setComplemento] = useState("");
+
+  // Função para buscar o endereço pelo CEP
+  const buscarEndereco = async (cepDigitado) => {
+    const cepLimpo = cepDigitado.replace(/\D/g, "");
+
+    if (cepLimpo.length !== 8) return;
+
+    try {
+      const response = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`);
+      const data = await response.json();
+
+      if (!data.erro) {
+        setRua(data.logradouro || "");
+        setBairro(data.bairro || "");
+        setCidade(data.localidade || "");
+        setEstado(data.uf || "");
+      } else {
+        alert("CEP não encontrado.");
+      }
+    } catch (err) {
+      console.error("Erro ao buscar CEP:", err);
+      alert("Erro ao buscar o endereço.");
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -14,49 +45,95 @@ function Register3() {
       alert("Você precisa aceitar os termos para continuar.");
       return;
     }
-    // salvar dados no backend
-    
-    navigate("/login"); 
-  };
 
-  // ADD validações de campo
+    // Aqui você pode juntar os dados das etapas anteriores + endereço para enviar ao backend
+    const endereco = {
+      cep,
+      rua,
+      bairro,
+      cidade,
+      estado,
+      complemento,
+    };
+
+    console.log("Dados de endereço:", endereco);
+    // salvar no backend ou em localStorage/sessionStorage se necessário
+
+    navigate("/login");
+  };
 
   return (
     <div className="register-container">
       <div className="register-box">
-        <ProgressBar step={3} /> {/* Barra de progresso */}
+        <ProgressBar step={3} />
         <h2>Seu Endereço</h2>
         <form onSubmit={handleSubmit}>
           <div className="address-section">
             <div className="input-group">
               <label>CEP</label>
-              <input type="number" placeholder="Digite o CEP" required />
+              <input
+                type="text"
+                placeholder="Digite o CEP"
+                value={cep}
+                onChange={(e) => setCep(e.target.value)}
+                onBlur={() => buscarEndereco(cep)}
+                required
+              />
             </div>
 
             <div className="input-group">
               <label>Rua</label>
-              <input type="text" placeholder="Digite o nome da rua" required />
+              <input
+                type="text"
+                placeholder="Digite o nome da rua"
+                value={rua}
+                onChange={(e) => setRua(e.target.value)}
+                required
+              />
             </div>
 
             <div className="input-group">
               <label>Bairro</label>
-              <input type="text" placeholder="Digite o nome do bairro" required />
+              <input
+                type="text"
+                placeholder="Digite o nome do bairro"
+                value={bairro}
+                onChange={(e) => setBairro(e.target.value)}
+                required
+              />
             </div>
 
             <div className="input-group">
               <label>Complemento</label>
-              <input type="text" placeholder="Apto, bloco, etc. (opcional)" />
+              <input
+                type="text"
+                placeholder="Apto, bloco, etc. (opcional)"
+                value={complemento}
+                onChange={(e) => setComplemento(e.target.value)}
+              />
             </div>
 
             <div className="address-row">
               <div className="input-group">
                 <label>Cidade</label>
-                <input type="text" placeholder="Digite sua cidade" required />
+                <input
+                  type="text"
+                  placeholder="Digite sua cidade"
+                  value={cidade}
+                  onChange={(e) => setCidade(e.target.value)}
+                  required
+                />
               </div>
 
               <div className="input-group">
                 <label>Estado</label>
-                <input type="text" placeholder="Digite seu estado" required />
+                <input
+                  type="text"
+                  placeholder="Digite seu estado"
+                  value={estado}
+                  onChange={(e) => setEstado(e.target.value)}
+                  required
+                />
               </div>
             </div>
           </div>
