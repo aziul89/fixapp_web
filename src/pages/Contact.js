@@ -13,7 +13,6 @@ function Contact() {
     e.preventDefault();
     setShowPopup(true);
 
-    // Limpar os campos do formulário
     setName("");
     setEmail("");
     setMessage("");

@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "../styles/Register.css";
 import ProgressBar from "../components/ProgressBar";
 
-// ADD impedimento ao ir para a próxima pág sem ter preenchido os campos corretamente
+// ADD validações de campo
 
 function Register() {
   const navigate = useNavigate();
