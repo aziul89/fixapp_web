@@ -1,38 +1,50 @@
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/Register.css";
 import ProgressBar from "../components/ProgressBar";
-
-// ADD validações de campo
+import { useState } from "react";
 
 function Register() {
   const navigate = useNavigate();
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [telefone, setTelefone] = useState("");
+
+  const handleNext = (e) => {
+    e.preventDefault();
+
+    // Validação simples
+    if (!nome || !email || !telefone) {
+      alert("Preencha todos os campos.");
+      return;
+    }
+
+    navigate("/register2", {
+      state: { nome, email, telefone },
+    });
+  };
 
   return (
     <div className="register-container">
       <div className="register-box">
-        <ProgressBar step={1} /> {/* Barra de progresso */}
+        <ProgressBar step={1} />
         <h2>Cadastre-se agora para contratar nossos serviços!</h2>
-        <form>
-          {/* Nome */}
+        <form onSubmit={handleNext}>
           <div className="input-group">
             <label>Nome</label>
-            <input type="text" placeholder="Digite seu nome" required />
+            <input type="text" placeholder="Digite seu nome" value={nome} onChange={(e) => setNome(e.target.value)} required />
           </div>
 
-          {/* Email */}
           <div className="input-group">
             <label>Email</label>
-            <input type="email" placeholder="Digite seu email" required />
+            <input type="email" placeholder="Digite seu email" value={email} onChange={(e) => setEmail(e.target.value)} required />
           </div>
 
-          {/* Telefone */}
           <div className="input-group">
             <label>Telefone</label>
-            <input type="tel" placeholder="Digite seu telefone" required />
+            <input type="tel" placeholder="Digite seu telefone" value={telefone} onChange={(e) => setTelefone(e.target.value)} required />
           </div>
 
-          {/* Botão de próxima etapa */}
-          <button className="register-button" onClick={() => navigate("/register2")}>Próximo</button>
+          <button className="register-button" type="submit">Próximo</button>
         </form>
 
         <p className="login-text">
