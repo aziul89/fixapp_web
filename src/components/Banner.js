@@ -4,15 +4,15 @@ import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "../styles/Banner.css";
-// colocar informações da empresa
-
+import { useAuth } from "../context/AuthContext"; // ✅ IMPORTADO
 
 function Banner() {
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth(); // ✅ PEGA STATUS DE LOGIN
 
   const images = [
     "/images/img1.webp",
-    "/images/banner2.jpg",
+    "https://img.freepik.com/fotos-gratis/vista-frontal-de-uma-jovem-segurando-uma-placa-vermelha-de-venda-na-parede-marrom_140725-152441.jpg?ga=GA1.1.1617786885.1714433104&semt=ais_hybrid&w=740",
     "/images/banner3.jpg",
     "/images/banner4.jpg",
   ];
@@ -34,13 +34,15 @@ function Banner() {
                 backgroundImage: `url(${src})`,
               }}
             >
-              <div className="banner-content">
-                <h1>Aplicação de Películas</h1>
-                <p>Plataforma de contratação de serviços da IdeaFix.</p>
-                <button className="cta-button" onClick={() => navigate("/register")}>
-                  Contrate agora
-                </button>
-              </div>
+              {!isAuthenticated && ( // ✅ CONDICIONAL
+                <div className="banner-content">
+                  <h1>Aplicação de Películas</h1>
+                  <p>Plataforma de contratação de serviços da IdeaFix.</p>
+                  <button className="cta-button" onClick={() => navigate("/register")}>
+                    Contrate agora
+                  </button>
+                </div>
+              )}
             </div>
           </SwiperSlide>
         ))}

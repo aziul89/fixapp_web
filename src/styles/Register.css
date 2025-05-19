@@ -139,4 +139,25 @@
   color: #b69a00;
 }
 
+@media (max-width: 768px) {
+  .contact-content {
+    flex-direction: column;
+    max-width: 90%;
+    padding: 20px;
+  }
+
+  .contact-form {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .input-group2 input,
+  .input-group2 textarea {
+    width: 100%;
+    max-width: 100%; 
+    box-sizing: border-box; 
+  }
+}
+
+
   

@@ -44,12 +44,12 @@
   }
 
 .cta-button {
-  padding: 0.8rem 2rem;
+  padding: 16px 24px;
   font-size: 18px;
   background-color: #FFD700;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
