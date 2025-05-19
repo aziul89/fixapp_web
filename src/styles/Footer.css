@@ -30,6 +30,7 @@
   text-decoration: none;
   font-weight: 300;
   font-size: 14px;
+  text-shadow: rgba(0, 0, 0, 0.166) 0.1em 0.1em 0.2em;
 }
 
 .footer-links a:hover {
@@ -55,4 +56,5 @@
 .footer-rights {
   font-size: 12px;
   color: #2D3338;
+  text-shadow: rgba(0, 0, 0, 0.166) 0.1em 0.1em 0.2em;
 }

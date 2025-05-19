@@ -16,6 +16,7 @@
     "react-scripts": "5.0.1",
     "sweetalert2": "^11.21.0",
     "sweetalert2-react-content": "^5.1.0",
+    "swiper": "^11.2.6",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

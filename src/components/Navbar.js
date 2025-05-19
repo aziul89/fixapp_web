@@ -1,3 +1,4 @@
+import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/newlogo.png";
 import "../styles/Navbar.css";
@@ -11,26 +12,49 @@ function Navbar() {
   const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
 
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  // refs para menu hamburguer e dropdown
+  const menuRef = useRef(null);
+  const dropdownRef = useRef(null);
+
   const handleLogout = () => {
     MySwal.fire({
-      title: 'Você tem certeza que deseja sair?',
+      title: "Você tem certeza que deseja sair?",
       showCancelButton: true,
-      confirmButtonText: 'Sair',
-      cancelButtonText: 'Cancelar',
+      confirmButtonText: "Sair",
+      cancelButtonText: "Cancelar",
       reverseButtons: true,
       customClass: {
-        popup: 'my-popup',
-        confirmButton: 'my-confirm-button',
-        cancelButton: 'my-cancel-button'
+        popup: "my-popup",
+        confirmButton: "my-confirm-button",
+        cancelButton: "my-cancel-button",
       },
-      buttonsStyling: false
+      buttonsStyling: false,
     }).then((result) => {
       if (result.isConfirmed) {
         logout();
-        navigate('/');
+        navigate("/");
       }
     });
   };
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setMenuOpen(false);
+      }
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <header className="navbar">
@@ -42,23 +66,75 @@ function Navbar() {
           onClick={() => navigate("/")}
         />
       </div>
-      <nav>
+
+      {/* Hamburguer */}
+      <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+        ☰
+      </button>
+
+      <nav
+        ref={menuRef}
+        className="nav-menu"
+        style={{ display: menuOpen || window.innerWidth > 768 ? "flex" : "none" }}
+      >
         <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/services">Serviços</Link></li>
-          <li><Link to="/como-funciona">Como funciona</Link></li>
+          <li>
+            <Link to="/" onClick={() => setMenuOpen(false)}>
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link to="/services" onClick={() => setMenuOpen(false)}>
+              Serviços
+            </Link>
+          </li>
+          <li>
+            <Link to="/como-funciona" onClick={() => setMenuOpen(false)}>
+              Como funciona
+            </Link>
+          </li>
         </ul>
 
         {isAuthenticated ? (
-          <div className="dropdown">
-            <button className="navbar-button dropdown-toggle">Perfil</button>
-            <div className="dropdown-menu">
-              <Link to="/profile">Ver perfil</Link>
-              <button onClick={handleLogout}>Sair</button>
+          <div className="dropdown" ref={dropdownRef}>
+            <button
+              className="navbar-button dropdown-toggle"
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+            >
+              Meu Perfil
+            </button>
+
+            <div
+              className="dropdown-menu"
+              style={{ display: dropdownOpen ? "block" : "none" }}
+            >
+              <Link
+                className="perfil-teste"
+                to="/profile"
+                onClick={() => setMenuOpen(false)}
+              >
+                Ver perfil
+              </Link>
+              <button
+                onClick={() => {
+                  setMenuOpen(false);
+                  handleLogout();
+                }}
+              >
+                Sair
+              </button>
             </div>
           </div>
         ) : (
-          <button className="navbar-button" onClick={() => navigate("/register")}>Contratar</button>
+          <button
+            className="navbar-button"
+            onClick={() => {
+              setMenuOpen(false);
+              navigate("/register");
+            }}
+          >
+            Contratar
+          </button>
         )}
       </nav>
     </header>

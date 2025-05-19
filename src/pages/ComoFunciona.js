@@ -7,7 +7,7 @@ function ComoFunciona() {
   return (
     <section className="como-funciona-container">
       <div className="como-funciona-content">
-        <h1>Contrate Aplicação de Películas Sem Sair de Casa</h1>
+        <h1>Contrate nossos serviços sem sair de casa! <span>🛠️</span></h1>
         <p className="descricao">
           O <strong>IdeaFix</strong> é a plataforma ideal para quem busca <strong>praticidade, segurança</strong> e <strong>agilidade</strong> na hora de contratar serviços de aplicação de películas residenciais, comerciais ou automotivas.
         </p>

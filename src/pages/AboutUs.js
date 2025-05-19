@@ -5,7 +5,7 @@ function AboutUs() {
   return (
     <div className="aboutus-container">
       <div className="aboutus-content">
-        <h1>Quem Somos</h1>
+        <h1>Quem Somos <span>🤝</span></h1>
         <p>
           A <strong>IdeaFix</strong> é uma plataforma digital criada para facilitar a contratação de serviços de aplicação de películas em residências, comércios e veículos. Nosso objetivo é conectar você a profissionais especializados, garantindo conforto, segurança e praticidade sem sair de casa.
         </p>
@@ -17,7 +17,7 @@ function AboutUs() {
         <img src={logopink} alt="Equipe IdeaFix" className="aboutus-image" />
       </div>
 
-        <h2>Uma Iniciativa Universitária</h2>
+        <h2>Uma Iniciativa Universitária <span>🏫</span></h2>
         <p>
           Este projeto foi desenvolvido em parceria com alunos da <strong>Universidade Católica de Pernambuco</strong>, como parte de uma iniciativa educacional que une inovação, tecnologia e impacto social.
         </p>

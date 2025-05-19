@@ -1,4 +1,5 @@
 .aboutus-container {
+  display: flex;
   padding: 60px 20px;
   max-width: 900px;
   margin: 0 auto;
@@ -10,7 +11,7 @@
 .aboutus-content h1 {
   font-size: 32px;
   margin-bottom: 20px;
-  color: #FFD700;
+  color: #2D3338;
 }
 
 .aboutus-content h2 {
