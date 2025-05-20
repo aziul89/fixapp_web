@@ -104,7 +104,8 @@ nav ul li {
 
 .dropdown-menu a,
 .dropdown-menu button {
-  color: #333;
+  color: #333 !important;
+  font-weight: 300 !important;
   padding: 10px 15px;
   text-decoration: none;
   display: block;

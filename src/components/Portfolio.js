@@ -17,7 +17,7 @@ const responsive = {
 
 const portfolio1 = [
   {
-    img: "https://img.freepik.com/fotos-premium/trabalhador-de-servico-automovel-aplicando-nano-revestimento-em-um-detalhe-do-carro_179755-10517.jpg",
+    img: "https://img.freepik.com/fotos-gratis/fim-cima-car-dealership_23-2148130077.jpg?ga=GA1.1.1617786885.1714433104&semt=ais_hybrid&w=740",
   },
   { img: port1 },
   {

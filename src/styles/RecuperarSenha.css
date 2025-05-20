@@ -20,32 +20,33 @@
     text-align: center;
 }
 
+.lock-icon {
+  font-size: 50px; /* Aumente conforme desejar */
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
 /* Título */
-.recuperar-box h2 {
+
+.titulo {
  font-size: 24px;
- margin-bottom: 20px;
+ margin-bottom: 10px;
  color: #333;
 }
 
-/* Grupo de input */
-.input-group {
-  text-align: left;
-  margin-bottom: 15px;
+.descricao {
+  font-size: 18px;
+  color: #aaa;
+  margin-bottom: 20px;
 }
 
-.input-group label {
-  display: block;
- font-weight: bold;
- margin-bottom: 5px;
- color: #555;
-}
-
-.input-group input {
+.campo-email {
   width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  padding: 14px;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
 }
 
 /* Botão amarelo */
@@ -68,9 +69,32 @@
   background-color: #b69a00;
 }
 
+.link-criar-conta a,
+.voltar-login a {
+  display: inline-block;
+  margin-top: 15px;
+  font-size: 16px;
+  color: #1a0dab;
+  text-decoration: none;
+}
+
+.link-criar-conta a:hover,
+.voltar-login a:hover {
+  text-decoration: underline;
+}
+
+.separador {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+  color: #333;
+}
+
+
 /* Mensagem de feedback */
 .mensagem {
+  color: #0f0;
   margin-top: 15px;
-  color: #2D3338;
-  font-size: 14px;
+  font-size: 0.9rem;
 }

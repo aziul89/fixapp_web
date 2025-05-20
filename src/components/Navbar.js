@@ -24,7 +24,7 @@ function Navbar() {
       title: "Você tem certeza que deseja sair?",
       showCancelButton: true,
       confirmButtonText: "Sair",
-      cancelButtonText: "Cancelar",
+      cancelButtonText: "Não",
       reverseButtons: true,
       customClass: {
         popup: "my-popup",

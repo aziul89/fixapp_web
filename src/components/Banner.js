@@ -4,17 +4,17 @@ import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "../styles/Banner.css";
-import { useAuth } from "../context/AuthContext"; // ✅ IMPORTADO
+import { useAuth } from "../context/AuthContext"; 
 
 function Banner() {
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth(); // ✅ PEGA STATUS DE LOGIN
+  const { isAuthenticated } = useAuth(); 
 
   const images = [
-    "/images/img1.webp",
-    "https://img.freepik.com/fotos-gratis/vista-frontal-de-uma-jovem-segurando-uma-placa-vermelha-de-venda-na-parede-marrom_140725-152441.jpg?ga=GA1.1.1617786885.1714433104&semt=ais_hybrid&w=740",
-    "/images/banner3.jpg",
-    "/images/banner4.jpg",
+    "/images/info1.png",
+    "https://img.freepik.com/vetores-gratis/modelo-de-banner-engracado-da-black-friday-com-balao-e-fundo-de-zoom-em-quadrinhos_69286-219.jpg?ga=GA1.1.1617786885.1714433104&semt=ais_hybrid&w=740",
+    "/images/info1.png",
+    "/images/info1.png",
   ];
 
   return (
@@ -34,7 +34,7 @@ function Banner() {
                 backgroundImage: `url(${src})`,
               }}
             >
-              {!isAuthenticated && ( // ✅ CONDICIONAL
+              {!isAuthenticated && ( 
                 <div className="banner-content">
                   <h1>Aplicação de Películas</h1>
                   <p>Plataforma de contratação de serviços da IdeaFix.</p>

@@ -1,28 +1,31 @@
 .carousel-wrapper {
   padding: 40px 20px;
-  background-color: #fe608dd3;
+  background-color: #e6e6e6;
+  
 }
 
 .showcase-title {
-  font-size: 2rem;
+  font-size: 28px;
   font-weight: 600;
-  color: #2D3338;
-  margin-bottom: 30px;
+  color: #333;
+  margin-top: 20px;
+  margin-bottom: 20px;
   text-align: center;
   text-shadow: rgba(0, 0, 0, 0.166) 0.1em 0.1em 0.2em;
 }
 
 .carousel-card {
-  border-radius: 12px;
+  border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
   margin: 10px;
   height: 280px;
+  transform: scale(0.8);
   transition: transform 0.3s ease;
 }
 
 .carousel-card:hover {
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 
 .carousel-img {
