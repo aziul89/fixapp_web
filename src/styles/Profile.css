@@ -1,0 +1,119 @@
+.profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #FC3F75, #e3e3e3);
+  padding: 4rem;
+}
+
+.profile-box {
+  width: 100%;
+  max-width: 900px;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.profile-box h1 {
+  font-size: 28px;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #333;
+  text-shadow: rgba(0, 0, 0, 0.166) 0.1em 0.1em 0.2em;
+}
+
+.profile-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border-left: 4px solid #FFD700;
+  background-color: #f9fafb;
+  border-radius: 0.75rem;
+}
+
+.profile-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #2D3338;
+  border-bottom: 2px solid #FFD700;
+  padding-bottom: 0.5rem;
+}
+
+.profile-section p {
+  margin: 0.4rem 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+.profile-section ul {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+  color: #444;
+}
+
+.profile-section li {
+  margin-bottom: 0.5rem;
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.button-container {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.edit-button {
+  background-color: #FFD700;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.edit-button:hover {
+  background-color: #b69a00;
+}
+
+/* Responsividade */
+
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 2rem;
+  }
+
+  .profile-data-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .edit-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-container {
+    padding: 1rem;
+  }
+
+  .profile-box h1 {
+    font-size: 1.6rem;
+  }
+
+  .profile-section h2 {
+    font-size: 1.2rem;
+  }
+
+  .profile-section li {
+    font-size: 0.95rem;
+  }
+}

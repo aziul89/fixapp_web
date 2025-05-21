@@ -84,6 +84,8 @@ function Register3() {
 
       alert("Endereço salvo com sucesso!");
       navigate("/login");
+    //navigate("/profile", { state: { clienteId } });
+
     } catch (error) {
       console.error("Erro de rede:", error);
       alert("Erro ao salvar o endereço. Verifique a conexão e tente novamente.");
@@ -197,6 +199,7 @@ function Register3() {
         </p>
       </div>
     </div>
+
   );
 }
 

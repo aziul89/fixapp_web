@@ -14,6 +14,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Services from './components/Services';
 import ScrollToTop from './components/ScrollToTop';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path="/recuperar-senha" element={<RecuperarSenha />} />
         <Route path="/como-funciona" element={<ComoFunciona />} />
         <Route path="/services" element={<Services />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
       <Footer />
     </>
