@@ -77,7 +77,7 @@ nav ul li {
 }
 
 .dropdown-toggle {
-  background-color: #fc3f75c4;
+  background-color: #FC3F75;
   border: none;
   padding: 10px 15px;
   font-weight: bold;
@@ -86,7 +86,7 @@ nav ul li {
 }
 
 .dropdown-toggle:hover {
-  background-color: #FC3F75;
+  background-color: #af2b50;
 }
 
 .dropdown-menu {
