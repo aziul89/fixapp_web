@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   padding: 60px 20px;
-  background-color: #fff;
+    background: linear-gradient(135deg,  #FFD700, #fae25c);
 }
 
 .como-funciona-content {
@@ -20,7 +20,8 @@
   font-size: 24px;
   margin-top: 30px;
   margin-bottom: 15px;
-  color: #FFD700;
+  color: #ff0080;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
 }
 
 .descricao {
