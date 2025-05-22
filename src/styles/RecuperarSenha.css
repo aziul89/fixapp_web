@@ -5,7 +5,8 @@
  padding-top: 100px; /* Espaço para o navbar */
  padding-bottom: 80px; /* Espaço para o footer */
  height: 100vh;
- background: linear-gradient(135deg, #FC3F75, #e3e3e3);
+ 
+ background: linear-gradient(135deg, #FC3F75, #f72963);
 }
 
 /* Card branco */
