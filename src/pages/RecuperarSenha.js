@@ -13,7 +13,7 @@ function RecuperarSenha() {
     setErro('');
 
     try {
-      const response = await fetch('http://localhost:3000/auth/forgot-password', {
+      const response = await fetch('https://ideiafix-back-end-1test.onrender.com/auth/forgot-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

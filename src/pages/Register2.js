@@ -44,7 +44,7 @@ function RegisterPassword() {
     };
 
     try {
-      const response = await fetch("http://localhost:3000/api", {  // Ajuste a URL conforme seu backend
+      const response = await fetch("https://ideiafix-back-end-1test.onrender.com/api", {  // Ajuste a URL conforme seu backend
         method: "POST",
         headers: {
           "Content-Type": "application/json",

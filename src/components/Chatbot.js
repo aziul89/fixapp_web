@@ -10,7 +10,7 @@ const Chatbot= () => {
 
   return (
     <div
-      //className="elfsight-app-55d7184b-4905-4953-9c4a-227081ab3c8d"
+      className="elfsight-app-55d7184b-4905-4953-9c4a-227081ab3c8d"
       data-elfsight-app-lazy
     ></div>
   );

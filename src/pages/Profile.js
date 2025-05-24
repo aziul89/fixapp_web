@@ -20,7 +20,7 @@ function Profile() {
 
     const fetchCliente = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/${user.id}`, {
+        const response = await fetch(`https://ideiafix-back-end-1test.onrender.com/api/${user.id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -55,7 +55,7 @@ if (clienteId) {
     const fetchEndereco = async (clienteId) => {
        console.log("clienteId recebido:", clienteId); 
       try {
-        const response = await fetch(`http://localhost:3000/endere/cliente/${clienteId}`, {
+        const response = await fetch(`https://ideiafix-back-end-1test.onrender.com/endere/cliente/${clienteId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
