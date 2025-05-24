@@ -5,11 +5,32 @@ import "../styles/RecuperarSenha.css";
 function RecuperarSenha() {
   const [email, setEmail] = useState('');
   const [mensagem, setMensagem] = useState('');
+  const [erro, setErro] = useState('');
 
-  const handleSubmit = (e) => {
-    // fazer requisição ao backend
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setMensagem("Se este e-mail estiver cadastrado, enviaremos um link para recuperar o acesso.");
+    setMensagem('');
+    setErro('');
+
+    try {
+      const response = await fetch('https://ideiafix-back-end-1test.onrender.com/auth/forgot-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setMensagem("Se este e-mail estiver cadastrado, enviaremos um link para recuperar o acesso.");
+      } else {
+        setErro(data.error || "Erro ao enviar o e-mail.");
+      }
+    } catch (err) {
+      setErro("Erro de conexão com o servidor.");
+    }
   };
 
   return (
@@ -26,7 +47,7 @@ function RecuperarSenha() {
 
         <form onSubmit={handleSubmit}>
           <input
-            type="text"
+            type="email"
             className="campo-email"
             placeholder="E-mail"
             value={email}
@@ -38,9 +59,8 @@ function RecuperarSenha() {
           </button>
         </form>
 
-        {mensagem && <p className="mensagem">{mensagem}</p>}
-
-        
+        {mensagem && <p className="mensagem sucesso">{mensagem}</p>}
+        {erro && <p className="mensagem erro">{erro}</p>}
 
         <div className="separador">
           <p> OU </p>

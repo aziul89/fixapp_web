@@ -64,7 +64,7 @@ function Register3() {
     console.log("Dados a enviar para backend:", endereco);
 
     try {
-      const response = await fetch("http://localhost:3000/endere", { // Ajuste endpoint conforme seu backend
+      const response = await fetch("https://ideiafix-back-end-1test.onrender.com/endere", { // Ajuste endpoint conforme seu backend
         method: "POST",
         headers: {
           "Content-Type": "application/json",
