@@ -1,5 +1,6 @@
 // import { useEffect, useState } from 'react';
 // import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 
 import { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
@@ -53,21 +54,23 @@ function Services() {
           showDots={false}
           containerClass="carousel-container"
         >
-          {services.map((service) => (
-            <div className="service-card" key={service.id}>
-              <div className="service-img-box">
-                <img
-                  src={service.imgUrl || "https://via.placeholder.com/300x200"}
-                  alt={service.nome}
-                  className="service-img"
-                />
-              </div>
-              <div className="service-info">
-                <h3 className="service-title">{service.nome}</h3>
-                <p className="service-description">{service.descricao}</p>
-              </div>
-            </div>
-          ))}
+         {services.map((service) => (
+  <Link to={`/services/${service.id}`} key={service.id} className="service-card-link">
+    <div className="service-card">
+      <div className="service-img-box">
+        <img
+          src={service.imgUrl || "https://via.placeholder.com/300x200"}
+          alt={service.nome}
+          className="service-img"
+        />
+      </div>
+      <div className="service-info">
+        <h3 className="service-title">{service.nome}</h3>
+        <p className="service-description">{service.descricao}</p>
+      </div>
+    </div>
+  </Link>
+))}
         </Carousel>
       </section>
 
