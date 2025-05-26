@@ -1,8 +1,22 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import '../styles/ServiceDetail.css'
+import '../styles/ServiceDetail.css';
 
 function ServiceDetail() {
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      navigate('/confirmacao'); // User logado
+    } else {
+      navigate('/register'); // User não logado
+    }
+  };
+
   const { id } = useParams();
   const [service, setService] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -41,7 +55,7 @@ function ServiceDetail() {
         />
       </div>
 
-      <div className="service-form">
+      <form className="service-form" onSubmit={handleSubmit}>
         <h3>Formulário</h3>
 
         <div className="form-section">
@@ -50,15 +64,15 @@ function ServiceDetail() {
           <div className="input-row">
             <div className="form-group">
               <label>Altura:</label>
-              <input type="number" placeholder="Digite aqui" /> cm
+              <input type="number" placeholder="Digite aqui" required /> cm
             </div>
             <div className="form-group">
               <label>Largura:</label>
-              <input type="number" placeholder="Digite aqui" /> cm
+              <input type="number" placeholder="Digite aqui" required /> cm
             </div>
             <div className="form-group">
               <label>Espessura:</label>
-              <input type="number" placeholder="Digite aqui" /> cm
+              <input type="number" placeholder="Digite aqui" required /> cm
             </div>
           </div>
         </div>
@@ -69,11 +83,11 @@ function ServiceDetail() {
           <div className="input-row">
             <div className="form-group">
               <label>Data:</label>
-              <input type="date" />
+              <input type="date" required />
             </div>
             <div className="form-group">
               <label>Hora:</label>
-              <input type="time" />
+              <input type="time" required />
             </div>
           </div>
         </div>
@@ -81,8 +95,8 @@ function ServiceDetail() {
         <div className="form-section">
           <div className="form-group">
             <label>Tipo do material:</label>
-            <select>
-              <option>Selecione</option>
+            <select required>
+              <option value="">Selecione</option>
               <option>Vidro</option>
               <option>Película</option>
               <option>Outro</option>
@@ -91,8 +105,8 @@ function ServiceDetail() {
 
           <div className="form-group">
             <label>Cor desejada:</label>
-            <select>
-              <option>Selecione</option>
+            <select required>
+              <option value="">Selecione</option>
               <option>Incolor</option>
               <option>Fumê</option>
               <option>Espelhado</option>
@@ -109,8 +123,7 @@ function ServiceDetail() {
         <div className="button-container">
           <button type="submit">Enviar</button>
         </div>
-
-      </div>
+      </form>
     </div>
   );
 }
