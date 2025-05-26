@@ -15,6 +15,7 @@ import Footer from './components/Footer';
 import Services from './components/Services';
 import ScrollToTop from './components/ScrollToTop';
 import Profile from './pages/Profile';
+import ServiceDetail from './components/ServiceDetail';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/recuperar-senha" element={<RecuperarSenha />} />
         <Route path="/como-funciona" element={<ComoFunciona />} />
         <Route path="/services" element={<Services />} />
+        <Route path="/services/:id" element={<ServiceDetail />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
       <Footer />

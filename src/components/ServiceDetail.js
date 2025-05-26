@@ -8,7 +8,7 @@ function ServiceDetail() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`http://seu-backend/${id}`) // url API 
+    fetch(`https://ideiafix-back-end-1test.onrender.com/services/${id}`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Erro ao buscar serviço');
@@ -31,9 +31,9 @@ function ServiceDetail() {
 
   return (
     <div className="service-detail">
-      <h2>{service.title}</h2>
-      <img src={service.img} alt={service.title} style={{ maxWidth: '100%' }} />
-      <p>{service.description}</p>
+      <h2>{service.nome}</h2>
+      <img src={service.imgUrl} alt={service.nome} style={{ maxWidth: '100%' }} />
+      <p>{service.descricao}</p>
     </div>
   );
 }
