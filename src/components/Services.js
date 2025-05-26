@@ -1,7 +1,4 @@
-// import { useEffect, useState } from 'react';
-// import { Link } from 'react-router-dom'; 
 import { Link } from 'react-router-dom';
-
 import { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -38,7 +35,7 @@ function Services() {
       });
   }, []);
 
-  if (loading) return <p>Carregando serviços...</p>;
+  if (loading) return <p>Carregando...</p>;
   if (error) return <p>Erro: {error}</p>;
 
   return (
