@@ -18,6 +18,11 @@ function AdesivoParede() {
       <h3>Adesivo de Parede Personalizado</h3>
 
       <div className="form-group">
+        <label>Número de paredes:</label>
+        <input type="mumber" required />
+      </div>
+
+      <div className="form-group">
         <label>Altura (m):</label>
         <input type="number" step="0.01" required />
       </div>
