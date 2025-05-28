@@ -6,7 +6,7 @@
     padding-bottom: 100px; /* Espaço para o footer */
     height: 100vh;
 
-    background: linear-gradient(135deg, #FC3F75, #e3e3e3);
+    background: linear-gradient(135deg, #FC3F75, #f6a0b9);
   }
   
   .register-box {
@@ -63,6 +63,10 @@
     flex: 1;
   }
 
+  .admin-text {
+    font-size: 14px;
+    margin-top: 30px;
+  }
   
   /* Botão de envio */
   .register-button {

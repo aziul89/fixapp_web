@@ -14,7 +14,7 @@ function Login() {
     e.preventDefault(); 
 
     try {
-      const response = await fetch("https://ideiafix-back-end-1test.onrender.com/api/login", { // substitua pela URL correta
+      const response = await fetch("https://ideiafix-back-end-1test.onrender.com/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, senha })
@@ -70,8 +70,14 @@ function Login() {
         <p className="login-text">
           Não tem uma conta? <Link to="/register" className="login-link">Cadastre-se</Link>
         </p>
+        
         <p>
           <Link to="/recuperar-senha" className="forpassword-link">Esqueceu a senha?</Link>
+        </p>
+
+        {/*Login de colaboradores da empresa*/}
+        <p className="admin-text">
+          É um colaborador? <Link to="/" className="login-link">Clique aqui</Link>
         </p>
       </div>
     </div>
