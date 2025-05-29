@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
-function PlacaSinalizacao() {
+function PlacaAcrilico() {
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
 
@@ -21,25 +21,13 @@ function PlacaSinalizacao() {
         <h3>Preencha os dados abaixo:</h3>
 
         <div className="form-group">
-          <label>Material:</label>
-          <select required>
-            <option>Selecione</option>
-            <option>PVC</option>
-            <option>Acrílico</option>
-          </select>
-        </div>
-        <div className="form-group">
-          <label>Quantidade de placas:</label>
-          <input type="number" required />
+          <label>Cor do acrílico:</label>
+          <input type="text" required />
         </div>
         <div className="form-group">
           <label>Altura:</label>
           <div className="input-row">
-            <input 
-              type="text"  
-              required 
-              style={{ flex: '2' }} 
-            />
+            <input type="text" required style={{ flex: '2' }} />
             <select required style={{ flex: '1' }}>
               <option value="">Unidade de medida</option>
               <option value="mm">mm</option>
@@ -48,14 +36,11 @@ function PlacaSinalizacao() {
             </select>
           </div>
         </div>
+
         <div className="form-group">
           <label>Largura:</label>
           <div className="input-row">
-            <input 
-              type="text"  
-              required 
-              style={{ flex: '2' }} 
-            />
+            <input type="text" required style={{ flex: '2' }} />
             <select required style={{ flex: '1' }}>
               <option value="">Unidade de medida</option>
               <option value="mm">mm</option>
@@ -64,9 +49,8 @@ function PlacaSinalizacao() {
             </select>
           </div>
         </div>
-        
         <div className="form-group">
-          <label>Upload da arte:</label>
+          <label>Upload da logomarca:</label>
           <input type="file" required />
         </div>
 
@@ -88,4 +72,4 @@ function PlacaSinalizacao() {
   );
 }
 
-export default PlacaSinalizacao;
+export default PlacaAcrilico;

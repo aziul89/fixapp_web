@@ -1,49 +1,88 @@
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 function AdesivoParede() {
   const navigate = useNavigate();
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
     if (token) {
-      navigate('/confirmacao');
+      setShowPopup(true);
     } else {
-      navigate('/login');
+      navigate('/register');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="service-form">
-      <h3>Adesivo de Parede Personalizado</h3>
+    <>
+      <form onSubmit={handleSubmit} className="service-form">
+        <h3>Preencha os dados abaixo:</h3>
 
-      <div className="form-group">
-        <label>Número de paredes:</label>
-        <input type="mumber" required />
-      </div>
+        <p className="form-warning">
+          ⚠️ <strong>Observação: </strong>As medidas podem ser aproximadas. Um de nossos colaboradores irá medir corretamente no local.
+        </p>
 
-      <div className="form-group">
-        <label>Altura (m):</label>
-        <input type="number" step="0.01" required />
-      </div>
-      <div className="form-group">
-        <label>Largura (m):</label>
-        <input type="number" step="0.01" required />
-      </div>
-      <div className="form-group">
-        <label>Tipo de adesivo:</label>
-        <select required>
-          <option>Selecione</option>
-          <option>Impressão Digital</option>
-          <option>Liso</option>
-          <option>Decorativo</option>
-        </select>
-      </div>
+        <div className="form-group">
+          <label>Número de paredes:</label>
+          <input type="number" step="1" required />
+        </div>
 
-      <div className="button-container">
-        <button type="submit">Enviar</button>
-      </div>
-    </form>
+        <div className="form-group">
+          <label>Altura:</label>
+          <div className="input-row">
+            <input type="text" required style={{ flex: '2' }} />
+            <select required style={{ flex: '1' }}>
+              <option value="">Unidade de medida</option>
+              <option value="mm">mm</option>
+              <option value="cm">cm</option>
+              <option value="m">m</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="form-group">
+          <label>Largura:</label>
+          <div className="input-row">
+            <input type="text" required style={{ flex: '2' }} />
+            <select required style={{ flex: '1' }}>
+              <option value="">Unidade de medida</option>
+              <option value="mm">mm</option>
+              <option value="cm">cm</option>
+              <option value="m">m</option>
+            </select>
+          </div>
+        </div>
+        <div className="form-group">
+          <label>Tipo de adesivo:</label>
+          <select required>
+            <option>Selecione</option>
+            <option>Impressão Digital</option>
+            <option>Liso</option>
+            <option>Decorativo</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label>Cor do adesivo:</label>
+          <input type="text" required />
+        </div>
+
+        <div className="button-container">
+          <button type="submit">Enviar</button>
+        </div>
+      </form>
+
+      {showPopup && (
+        <div className="popup-overlay">
+          <div className="popup-content">
+            <h2>Mensagem</h2>
+            <p>Seu agendamento está em análise, em breve devolveremos uma resposta!</p>
+            <button onClick={() => setShowPopup(false)}>OK</button>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
