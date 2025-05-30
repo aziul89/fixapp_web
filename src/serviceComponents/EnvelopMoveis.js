@@ -43,7 +43,7 @@ function EnvelopamentoMoveis() {
         <h3>Preencha os dados abaixo:</h3>
 
         <p className="form-warning">
-          ⚠️ As medidas são aproximadas. Um de nossos colaboradores irá medir corretamente no local.
+          ⚠️ <strong>Observação:</strong> As medidas podem ser aproximadas. Um de nossos colaboradores irá medir corretamente no local.
         </p>
 
         <div className="form-group">

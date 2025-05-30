@@ -35,7 +35,14 @@ function Services() {
       });
   }, []);
 
-  if (loading) return <p>Carregando...</p>;
+  if (loading) {
+    return (
+      <div class="spinner-container">
+        <div class="spinner"></div>
+        <p>Buscando informações...</p>
+      </div>
+    );
+  }
   if (error) return <p>Erro: {error}</p>;
 
   return (

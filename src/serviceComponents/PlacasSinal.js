@@ -5,11 +5,27 @@ function PlacaSinalizacao() {
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
 
+  const [material, setMaterial] = useState('');
+  const [quantidade, setQuantidade] = useState('');
+  const [altura, setAltura] = useState('');
+  const [unidadeAltura, setUnidadeAltura] = useState('');
+  const [largura, setLargura] = useState('');
+  const [unidadeLargura, setUnidadeLargura] = useState('');
+  const [arquivo, setArquivo] = useState('');
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
+
     if (token) {
       setShowPopup(true);
+      setMaterial('');
+      setQuantidade('');
+      setAltura('');
+      setUnidadeAltura('');
+      setLargura('');
+      setUnidadeLargura('');
+      setArquivo('');
     } else {
       navigate('/register');
     }
@@ -22,52 +38,79 @@ function PlacaSinalizacao() {
 
         <div className="form-group">
           <label>Material:</label>
-          <select required>
-            <option>Selecione</option>
+          <select
+            value={material}
+            onChange={(e) => setMaterial(e.target.value)}
+            required
+          >
+            <option value="">Selecione</option>
             <option>PVC</option>
             <option>Acrílico</option>
           </select>
         </div>
+
         <div className="form-group">
           <label>Quantidade de placas:</label>
-          <input type="number" required />
+          <input
+            type="number"
+            value={quantidade}
+            onChange={(e) => setQuantidade(e.target.value)}
+            required
+          />
         </div>
+
         <div className="form-group">
           <label>Altura:</label>
           <div className="input-row">
-            <input 
-              type="text"  
-              required 
-              style={{ flex: '2' }} 
+            <input
+              type="text"
+              value={altura}
+              onChange={(e) => setAltura(e.target.value)}
+              required
             />
-            <select required style={{ flex: '1' }}>
-              <option value="">Unidade de medida</option>
+            <select
+              value={unidadeAltura}
+              onChange={(e) => setUnidadeAltura(e.target.value)}
+              required
+            >
+              <option value="">Unidade</option>
               <option value="mm">mm</option>
               <option value="cm">cm</option>
               <option value="m">m</option>
             </select>
           </div>
         </div>
+
         <div className="form-group">
           <label>Largura:</label>
           <div className="input-row">
-            <input 
-              type="text"  
-              required 
-              style={{ flex: '2' }} 
+            <input
+              type="text"
+              value={largura}
+              onChange={(e) => setLargura(e.target.value)}
+              required
             />
-            <select required style={{ flex: '1' }}>
-              <option value="">Unidade de medida</option>
+            <select
+              value={unidadeLargura}
+              onChange={(e) => setUnidadeLargura(e.target.value)}
+              required
+            >
+              <option value="">Unidade</option>
               <option value="mm">mm</option>
               <option value="cm">cm</option>
               <option value="m">m</option>
             </select>
           </div>
         </div>
-        
+
         <div className="form-group">
           <label>Upload da arte:</label>
-          <input type="file" required />
+          <input
+            type="file"
+            value={arquivo}
+            onChange={(e) => setArquivo(e.target.value)}
+            required
+          />
         </div>
 
         <div className="button-container">

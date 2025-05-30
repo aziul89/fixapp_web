@@ -5,11 +5,26 @@ function AdesivoParede() {
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
 
+  const [numParedes, setNumParedes] = useState('');
+  const [altura, setAltura] = useState('');
+  const [unidadeAltura, setUnidadeAltura] = useState('');
+  const [largura, setLargura] = useState('');
+  const [unidadeLargura, setUnidadeLargura] = useState('');
+  const [tipoAdesivo, setTipoAdesivo] = useState('');
+  const [corAdesivo, setCorAdesivo] = useState('');
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
     if (token) {
       setShowPopup(true);
+      setNumParedes('');
+      setAltura('');
+      setUnidadeAltura('');
+      setLargura('');
+      setUnidadeLargura('');
+      setTipoAdesivo('');
+      setCorAdesivo('');
     } else {
       navigate('/register');
     }
@@ -21,19 +36,36 @@ function AdesivoParede() {
         <h3>Preencha os dados abaixo:</h3>
 
         <p className="form-warning">
-          ⚠️ <strong>Observação: </strong>As medidas podem ser aproximadas. Um de nossos colaboradores irá medir corretamente no local.
+          ⚠️ <strong>Observação:</strong> As medidas podem ser aproximadas. Um de nossos colaboradores irá medir corretamente no local.
         </p>
 
         <div className="form-group">
           <label>Número de paredes:</label>
-          <input type="number" step="1" required />
+          <input
+            type="number"
+            step="1"
+            value={numParedes}
+            onChange={(e) => setNumParedes(e.target.value)}
+            required
+          />
         </div>
 
         <div className="form-group">
           <label>Altura:</label>
           <div className="input-row">
-            <input type="text" required style={{ flex: '2' }} />
-            <select required style={{ flex: '1' }}>
+            <input
+              type="text"
+              value={altura}
+              onChange={(e) => setAltura(e.target.value)}
+              required
+              style={{ flex: '2' }}
+            />
+            <select
+              value={unidadeAltura}
+              onChange={(e) => setUnidadeAltura(e.target.value)}
+              required
+              style={{ flex: '1' }}
+            >
               <option value="">Unidade de medida</option>
               <option value="mm">mm</option>
               <option value="cm">cm</option>
@@ -45,8 +77,19 @@ function AdesivoParede() {
         <div className="form-group">
           <label>Largura:</label>
           <div className="input-row">
-            <input type="text" required style={{ flex: '2' }} />
-            <select required style={{ flex: '1' }}>
+            <input
+              type="text"
+              value={largura}
+              onChange={(e) => setLargura(e.target.value)}
+              required
+              style={{ flex: '2' }}
+            />
+            <select
+              value={unidadeLargura}
+              onChange={(e) => setUnidadeLargura(e.target.value)}
+              required
+              style={{ flex: '1' }}
+            >
               <option value="">Unidade de medida</option>
               <option value="mm">mm</option>
               <option value="cm">cm</option>
@@ -54,18 +97,29 @@ function AdesivoParede() {
             </select>
           </div>
         </div>
+
         <div className="form-group">
           <label>Tipo de adesivo:</label>
-          <select required>
-            <option>Selecione</option>
+          <select
+            value={tipoAdesivo}
+            onChange={(e) => setTipoAdesivo(e.target.value)}
+            required
+          >
+            <option value="">Selecione</option>
             <option>Impressão Digital</option>
             <option>Liso</option>
             <option>Decorativo</option>
           </select>
         </div>
+
         <div className="form-group">
           <label>Cor do adesivo:</label>
-          <input type="text" required />
+          <input
+            type="text"
+            value={corAdesivo}
+            onChange={(e) => setCorAdesivo(e.target.value)}
+            required
+          />
         </div>
 
         <div className="button-container">
@@ -86,4 +140,4 @@ function AdesivoParede() {
   );
 }
 
-export default AdesivoParede; 
+export default AdesivoParede;

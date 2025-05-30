@@ -2,7 +2,6 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import '../styles/ServiceDetail.css';
 
-// Importação dos formulários específicos
 import EnvelopamentoMoveis from '../serviceComponents/EnvelopMoveis';
 import AdesivoParede from '../serviceComponents/AdesivosParede';
 import PlacaAcrilico from '../serviceComponents/PlacasAcri';
@@ -23,7 +22,6 @@ function ServiceDetail() {
     .replace(/[\u0300-\u036f]/g, "");
 };
 
-
   useEffect(() => {
     fetch(`https://ideiafix-back-end-1test.onrender.com/services/${id}`)
       .then(response => {
@@ -42,11 +40,17 @@ function ServiceDetail() {
       });
   }, [id]);
 
-  if (loading) return <p>Carregando serviço...</p>;
+  if (loading) {
+    return (
+      <div class="spinner-container">
+        <div class="spinner"></div>
+        <p>Buscando informações...</p>
+      </div>
+    );
+  }
   if (error) return <p>Erro: {error}</p>;
   if (!service) return <p>Serviço não encontrado.</p>;
 
-  // 🔥 Renderização dinâmica dos formulários
   const renderForm = () => {
     const nome = normalize(service.nome);
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import "./App.css"
 
 import Home from './pages/Home';
 import Register from './pages/Register';
@@ -22,22 +23,27 @@ function App() {
     <>
       <Navbar />
       <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/register2" element={<Register2 />} />
-        <Route path="/register3" element={<Register3 />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/aboutus" element={<AboutUs />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/recuperar-senha" element={<RecuperarSenha />} />
-        <Route path="/como-funciona" element={<ComoFunciona />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/services/:id" element={<ServiceDetail />} />
-        <Route path="/profile" element={<Profile />} />
-      </Routes>
+      
+      <div className="main-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/register2" element={<Register2 />} />
+          <Route path="/register3" element={<Register3 />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/aboutus" element={<AboutUs />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/recuperar-senha" element={<RecuperarSenha />} />
+          <Route path="/como-funciona" element={<ComoFunciona />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/services/:id" element={<ServiceDetail />} />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
+      </div>
+
       <Footer />
-    </>
+  </>
+
   );
 }
 
