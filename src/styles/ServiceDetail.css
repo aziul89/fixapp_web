@@ -65,6 +65,10 @@
   font-size: 14px;
 }
 
+.form-section p {
+  font-size: 18px;
+}
+
 /* Agrupamento de campos */
 .form-group {
   display: flex;
@@ -92,14 +96,46 @@ select {
   min-width: 100px;
 }
 
-input[type='file'] {
+input[type="file"] {
+  display: none;
+}
+
+/* Estilo do botão */
+.upload-button {
+  display: inline-block;
+  padding: 6px 12px;
+  background-color: #fc3f75a9;
+  color: #000000b1;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: background-color 0.3s;
   border: none;
 }
+
+.upload-button:hover {
+  background-color: #FC3F75;
+}
+
+/* Nome do arquivo */
+.file-name {
+  margin-left: 10px;
+  font-size: 14px;
+  color: #333;
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+
 
 .button-container {
   display: flex;
   justify-content: flex-end;
 }
+
 
 button {
   background-color: #ffd500;

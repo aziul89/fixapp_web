@@ -14,6 +14,9 @@ function EnvelopamentoMoveis() {
   const [unidadeProfundidade, setUnidadeProfundidade] = useState('');
   const [modeloAdesivo, setModeloAdesivo] = useState('');
   const [corAdesivo, setCorAdesivo] = useState('');
+  const [dataServico, setDataServico] = useState('');
+  const [horaServico, setHoraServico] = useState('');
+  const hoje = new Date().toISOString().split('T')[0];
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -58,6 +61,34 @@ function EnvelopamentoMoveis() {
         </div>
 
         <div className="form-group">
+          <label>Modelo do adesivo:</label>
+          <select
+            value={modeloAdesivo}
+            onChange={(e) => setModeloAdesivo(e.target.value)}
+            required
+          >
+            <option value="">Selecione</option>
+            <option value="Adesivo Liso">Adesivo Liso</option>
+            <option value="Adesivo Madeira">Adesivo Madeira</option>
+            <option value="Adesivo Mármore">Adesivo Mármore</option>
+            <option value="Outro">Outro</option>
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label>Cor do adesivo:</label>
+          <input
+            type="text"
+            value={corAdesivo}
+            onChange={(e) => setCorAdesivo(e.target.value)}
+            required
+          />
+        </div>
+
+      <div className="form-section">
+        <p><strong>Informe as dimensões da área de aplicação</strong></p>
+
+        <div className="form-group">
           <label>Altura:</label>
           <div className="input-row">
             <input
@@ -73,7 +104,7 @@ function EnvelopamentoMoveis() {
               required
               style={{ flex: '1' }}
             >
-              <option value="">Unidade</option>
+              <option value="">Unidade de medida</option>
               <option value="mm">mm</option>
               <option value="cm">cm</option>
               <option value="m">m</option>
@@ -97,13 +128,14 @@ function EnvelopamentoMoveis() {
               required
               style={{ flex: '1' }}
             >
-              <option value="">Unidade</option>
+              <option value="">Unidade de medida</option>
               <option value="mm">mm</option>
               <option value="cm">cm</option>
               <option value="m">m</option>
             </select>
           </div>
         </div>
+      </div>
 
         <div className="form-group">
           <label>Profundidade:</label>
@@ -121,7 +153,7 @@ function EnvelopamentoMoveis() {
               required
               style={{ flex: '1' }}
             >
-              <option value="">Unidade</option>
+              <option value="">Unidade de medida</option>
               <option value="mm">mm</option>
               <option value="cm">cm</option>
               <option value="m">m</option>
@@ -129,29 +161,30 @@ function EnvelopamentoMoveis() {
           </div>
         </div>
 
-        <div className="form-group">
-          <label>Modelo do adesivo:</label>
-          <select
-            value={modeloAdesivo}
-            onChange={(e) => setModeloAdesivo(e.target.value)}
-            required
-          >
-            <option value="">Selecione</option>
-            <option value="Adesivo Liso">Adesivo Liso</option>
-            <option value="Adesivo Madeira">Adesivo Madeira</option>
-            <option value="Adesivo Mármore">Adesivo Mármore</option>
-            <option value="Outro">Outro</option>
-          </select>
-        </div>
+        <div className="form-section">
+          <p><strong>Data e hora do serviço</strong></p>
 
-        <div className="form-group">
-          <label>Cor do adesivo:</label>
-          <input
-            type="text"
-            value={corAdesivo}
-            onChange={(e) => setCorAdesivo(e.target.value)}
-            required
-          />
+          <div className="input-row">
+            <div className="form-group">
+              <label>Data:</label>
+              <input
+                type="date"
+                min={hoje}
+                value={dataServico}
+                onChange={(e) => setDataServico(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>Hora:</label>
+              <input
+                type="time"
+                value={horaServico}
+                onChange={(e) => setHoraServico(e.target.value)}
+                required
+              />
+            </div>
+          </div>
         </div>
 
         <div className="button-container">

@@ -12,12 +12,16 @@ function AdesivoParede() {
   const [unidadeLargura, setUnidadeLargura] = useState('');
   const [tipoAdesivo, setTipoAdesivo] = useState('');
   const [corAdesivo, setCorAdesivo] = useState('');
+  const [dataServico, setDataServico] = useState('');
+  const [horaServico, setHoraServico] = useState('');
+  const hoje = new Date().toISOString().split('T')[0]; // pega a data no formato aaaa-mm-dd
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
     if (token) {
       setShowPopup(true);
+
       setNumParedes('');
       setAltura('');
       setUnidadeAltura('');
@@ -25,6 +29,8 @@ function AdesivoParede() {
       setUnidadeLargura('');
       setTipoAdesivo('');
       setCorAdesivo('');
+      setDataServico('');
+      setHoraServico('');
     } else {
       navigate('/register');
     }
@@ -51,6 +57,33 @@ function AdesivoParede() {
         </div>
 
         <div className="form-group">
+          <label>Tipo de adesivo:</label>
+          <select
+            value={tipoAdesivo}
+            onChange={(e) => setTipoAdesivo(e.target.value)}
+            required
+          >
+            <option value="">Selecione</option>
+            <option>Impressão Digital</option>
+            <option>Liso</option>
+            <option>Decorativo</option>
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label>Cor do adesivo:</label>
+          <input
+            type="text"
+            value={corAdesivo}
+            onChange={(e) => setCorAdesivo(e.target.value)}
+            required
+          />
+        </div>
+
+      <div className="form-section">
+        <p><strong>Informe as dimensões da área de aplicação</strong></p>
+
+        <div className="form-group">
           <label>Altura:</label>
           <div className="input-row">
             <input
@@ -73,6 +106,7 @@ function AdesivoParede() {
             </select>
           </div>
         </div>
+      </div>
 
         <div className="form-group">
           <label>Largura:</label>
@@ -98,28 +132,30 @@ function AdesivoParede() {
           </div>
         </div>
 
-        <div className="form-group">
-          <label>Tipo de adesivo:</label>
-          <select
-            value={tipoAdesivo}
-            onChange={(e) => setTipoAdesivo(e.target.value)}
-            required
-          >
-            <option value="">Selecione</option>
-            <option>Impressão Digital</option>
-            <option>Liso</option>
-            <option>Decorativo</option>
-          </select>
-        </div>
+        <div className="form-section">
+          <p><strong>Data e hora do serviço</strong></p>
 
-        <div className="form-group">
-          <label>Cor do adesivo:</label>
-          <input
-            type="text"
-            value={corAdesivo}
-            onChange={(e) => setCorAdesivo(e.target.value)}
-            required
-          />
+          <div className="input-row">
+            <div className="form-group">
+              <label>Data:</label>
+              <input
+                type="date"
+                min={hoje}
+                value={dataServico}
+                onChange={(e) => setDataServico(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>Hora:</label>
+              <input
+                type="time"
+                value={horaServico}
+                onChange={(e) => setHoraServico(e.target.value)}
+                required
+              />
+            </div>
+          </div>
         </div>
 
         <div className="button-container">

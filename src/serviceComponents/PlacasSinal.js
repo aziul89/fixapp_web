@@ -12,6 +12,9 @@ function PlacaSinalizacao() {
   const [largura, setLargura] = useState('');
   const [unidadeLargura, setUnidadeLargura] = useState('');
   const [arquivo, setArquivo] = useState('');
+  const [dataServico, setDataServico] = useState('');
+  const [horaServico, setHoraServico] = useState('');
+  const hoje = new Date().toISOString().split('T')[0];
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -59,6 +62,9 @@ function PlacaSinalizacao() {
           />
         </div>
 
+        <div className="form-section">
+        <p><strong>Informe as dimensões do objeto</strong></p>
+
         <div className="form-group">
           <label>Altura:</label>
           <div className="input-row">
@@ -73,13 +79,14 @@ function PlacaSinalizacao() {
               onChange={(e) => setUnidadeAltura(e.target.value)}
               required
             >
-              <option value="">Unidade</option>
+              <option value="">Unidade de medida</option>
               <option value="mm">mm</option>
               <option value="cm">cm</option>
               <option value="m">m</option>
             </select>
           </div>
         </div>
+      </div>
 
         <div className="form-group">
           <label>Largura:</label>
@@ -95,7 +102,7 @@ function PlacaSinalizacao() {
               onChange={(e) => setUnidadeLargura(e.target.value)}
               required
             >
-              <option value="">Unidade</option>
+              <option value="">Unidade de medida</option>
               <option value="mm">mm</option>
               <option value="cm">cm</option>
               <option value="m">m</option>
@@ -105,12 +112,44 @@ function PlacaSinalizacao() {
 
         <div className="form-group">
           <label>Upload da arte:</label>
-          <input
-            type="file"
-            value={arquivo}
-            onChange={(e) => setArquivo(e.target.value)}
-            required
-          />
+          <div className="file-upload">
+            <label htmlFor="file-upload" className="upload-button">
+              Selecionar arquivo
+            </label>
+            <input
+              id="file-upload"
+              type="file"
+              onChange={(e) => setArquivo(e.target.files[0])}
+              required
+            />
+            {arquivo && <span className="file-name">{arquivo.name}</span>}
+          </div>
+        </div>
+
+        <div className="form-section">
+          <p><strong>Quando o serviço deve estar pronto?</strong></p>
+
+          <div className="input-row">
+            <div className="form-group">
+              <label>Data:</label>
+              <input
+                type="date"
+                min={hoje}
+                value={dataServico}
+                onChange={(e) => setDataServico(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>Hora:</label>
+              <input
+                type="time"
+                value={horaServico}
+                onChange={(e) => setHoraServico(e.target.value)}
+                required
+              />
+            </div>
+          </div>
         </div>
 
         <div className="button-container">

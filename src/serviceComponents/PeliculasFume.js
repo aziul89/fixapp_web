@@ -11,6 +11,9 @@ function PeliculaFume() {
   const [unidadeAltura, setUnidadeAltura] = useState('');
   const [largura, setLargura] = useState('');
   const [unidadeLargura, setUnidadeLargura] = useState('');
+  const [dataServico, setDataServico] = useState('');
+  const [horaServico, setHoraServico] = useState('');
+  const hoje = new Date().toISOString().split('T')[0];
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -60,6 +63,9 @@ function PeliculaFume() {
           />
         </div>
 
+      <div className="form-section">
+        <p><strong>Informe as dimensões da área de aplicação</strong></p>
+
         <div className="form-group">
           <label>Altura:</label>
           <div className="input-row">
@@ -74,7 +80,7 @@ function PeliculaFume() {
               onChange={(e) => setUnidadeAltura(e.target.value)}
               required
             >
-              <option value="">Unidade</option>
+              <option value="">Unidade de medida</option>
               <option value="mm">mm</option>
               <option value="cm">cm</option>
               <option value="m">m</option>
@@ -96,11 +102,38 @@ function PeliculaFume() {
               onChange={(e) => setUnidadeLargura(e.target.value)}
               required
             >
-              <option value="">Unidade</option>
+              <option value="">Unidade de medida</option>
               <option value="mm">mm</option>
               <option value="cm">cm</option>
               <option value="m">m</option>
             </select>
+          </div>
+        </div>
+      </div>
+
+        <div className="form-section">
+          <p><strong>Data e hora do serviço</strong></p>
+
+          <div className="input-row">
+            <div className="form-group">
+              <label>Data:</label>
+              <input
+                type="date"
+                min={hoje}
+                value={dataServico}
+                onChange={(e) => setDataServico(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>Hora:</label>
+              <input
+                type="time"
+                value={horaServico}
+                onChange={(e) => setHoraServico(e.target.value)}
+                required
+              />
+            </div>
           </div>
         </div>
 
