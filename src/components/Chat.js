@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '../firebase';
 import { collection, addDoc, serverTimestamp, query, orderBy, onSnapshot } from 'firebase/firestore';
-import { X } from 'lucide-react';
+import { X, ArrowRight} from 'lucide-react';
+
 
 const Chat = ({ toggleChat }) => {
   const [messages, setMessages] = useState([]);
@@ -30,7 +31,7 @@ const Chat = ({ toggleChat }) => {
     <div className="chat-window">
       <div className="chat-header">
         <span>💬 Suporte Online</span>
-        <button className="close-btn" onClick={toggleChat}><X size={20} /></button>
+        <button className="close-btn" onClick={toggleChat}><X size={15} color="red" /></button>
       </div>
       <div className="chat-messages">
         {messages.map(msg => (
@@ -46,7 +47,7 @@ const Chat = ({ toggleChat }) => {
           onChange={e => setInput(e.target.value)}
           placeholder="Digite sua mensagem..."
         />
-        <button type="submit">Enviar</button>
+        <button type="submit"><ArrowRight size={20} style={{ marginLeft: '3px' }} /></button>
       </form>
     </div>
   );

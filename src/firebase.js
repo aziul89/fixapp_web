@@ -1,3 +1,4 @@
+import { getAuth, signInAnonymously } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
@@ -12,5 +13,11 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);
 
-export { db };
+// Login anônimo automático
+signInAnonymously(auth).catch((error) => {
+  console.error("Erro no login anônimo:", error);
+});
+
+export { db, auth };

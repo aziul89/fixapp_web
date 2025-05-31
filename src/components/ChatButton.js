@@ -5,15 +5,21 @@ import '../styles/ChatButton.css';
 
 const ChatButton = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showBubble, setShowBubble] = useState(true);
 
   const toggleChat = () => setIsOpen(!isOpen);
+  const hideBubble = () => setShowBubble(false);
 
   return (
     <div className="chat-button-container">
       {isOpen && <Chat toggleChat={toggleChat} />}
-      <button className="chat-toggle-button" onClick={toggleChat}>
-        {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
-      </button>
+
+      <div className="chat-float-wrapper">
+        {!isOpen && <span className="chat-bubble">Fale com nosso suporte!</span>}
+        <button className="chat-toggle-button" onClick={toggleChat}>
+          <img src="chatlogo.png" alt="Logo" className="chat-logo" />
+        </button>
+      </div>
     </div>
   );
 };
