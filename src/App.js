@@ -17,12 +17,15 @@ import Services from './components/Services';
 import ScrollToTop from './components/ScrollToTop';
 import Profile from './pages/Profile';
 import ServiceDetail from './components/ServiceDetail';
+import ChatButton from './components/ChatButton';
 
 function App() {
   return (
     <>
       <Navbar />
       <ScrollToTop />
+      
+      <ChatButton />
       
       <div className="main-content">
         <Routes>

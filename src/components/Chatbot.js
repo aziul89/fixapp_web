@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+/*import { useEffect } from 'react';
 
 const Chatbot= () => {
   useEffect(() => {
@@ -16,4 +16,4 @@ const Chatbot= () => {
   );
 };
 
-export default Chatbot;
+export default Chatbot; */

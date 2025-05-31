@@ -1,0 +1,96 @@
+/* Container do botão flutuante */
+.chat-button-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+/* Botão flutuante */
+.chat-toggle-button {
+  background-color: #FFD500;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+}
+
+.chat-toggle-button:hover {
+  background-color: #e6c200;
+}
+
+/* Janela do chat */
+.chat-window {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 350px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 1001;
+}
+
+/* Cabeçalho */
+.chat-header {
+  background-color: #FFD500;
+  color: #333;
+  padding: 12px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Área de mensagens */
+.chat-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  min-height: 300px;
+}
+
+.chat-message {
+  margin-bottom: 10px;
+}
+
+/* Input e botão */
+.chat-input {
+  display: flex;
+  border-top: 1px solid #ddd;
+  min-height: 50px;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  outline: none;
+}
+
+.chat-input button {
+  background-color: #FFD500;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.chat-input button:hover {
+  background-color: #e6c200;
+}
