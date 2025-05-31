@@ -19,6 +19,8 @@ import Profile from './pages/Profile';
 import ServiceDetail from './components/ServiceDetail';
 import ChatButton from './components/ChatButton';
 
+// ADD ROTAS PÚBLICA(cliente) E PRIVADA(admin)
+
 function App() {
   return (
     <>
