@@ -15,7 +15,8 @@ import Footer from './components/Footer';
 import Services from './components/Services';
 import ScrollToTop from './components/ScrollToTop';
 import Profile from './pages/Profile';
-
+import HomeDashboard from './dashboard/homeDashboard';
+import AgendamentoDetail from './dashboard/agendamentoDetail';
 function App() {
   return (
     <>
@@ -33,6 +34,10 @@ function App() {
         <Route path="/como-funciona" element={<ComoFunciona />} />
         <Route path="/services" element={<Services />} />
         <Route path="/profile" element={<Profile />} />
+        
+        <Route path="/homedashboard" element={<HomeDashboard />} />
+        <Route path="/agendamentos/:id" element={<AgendamentoDetail />} />
+       
       </Routes>
       <Footer />
     </>

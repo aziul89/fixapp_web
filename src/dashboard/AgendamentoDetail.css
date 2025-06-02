@@ -1,0 +1,19 @@
+.detail-container {
+  padding: 20px;
+}
+
+.imagens {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.imagens img {
+  width: 150px;
+  height: auto;
+  border-radius: 5px;
+}
+
+.info p {
+  margin: 5px 0;
+}
