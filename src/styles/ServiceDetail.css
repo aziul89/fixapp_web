@@ -104,8 +104,8 @@ input[type="file"] {
 .upload-button {
   display: inline-block;
   padding: 6px 12px;
-  background-color: #fc3f75a9;
-  color: #000000b1;
+  background-color: #3176ec;
+  color: #ffffff;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 600;
@@ -115,7 +115,7 @@ input[type="file"] {
 }
 
 .upload-button:hover {
-  background-color: #FC3F75;
+  background-color: #1a0dab;
 }
 
 /* Nome do arquivo */

@@ -30,16 +30,23 @@ const Chat = ({ toggleChat }) => {
   return (
     <div className="chat-window">
       <div className="chat-header">
-        <span>💬 Suporte Online</span>
-        <button className="close-btn" onClick={toggleChat}><X size={15} color="red" /></button>
+        <span>📌 SuporteFix</span>
+        <button className="close-btn" onClick={toggleChat}><X size={17} color="red" style={{ marginLeft: '-7px' }} strokeWidth={3} /></button>
       </div>
       <div className="chat-messages">
         {messages.map(msg => (
-          <div key={msg.id} className="chat-message">
+          <div
+            key={msg.id}
+            className={`chat-message ${msg.user === 'Atendente' ? 'attendant' : 'client'}`}
+          >
             <strong>{msg.user}:</strong> {msg.text}
+            <div className="timestamp">
+              {msg.timestamp?.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+            </div>
           </div>
         ))}
       </div>
+
       <form className="chat-input" onSubmit={sendMessage}>
         <input
           type="text"

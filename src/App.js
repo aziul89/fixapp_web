@@ -18,6 +18,7 @@ import ScrollToTop from './components/ScrollToTop';
 import Profile from './pages/Profile';
 import ServiceDetail from './components/ServiceDetail';
 import ChatButton from './components/ChatButton';
+import AdminChat from './pages/AdminChat';
 
 // ADD ROTAS PÚBLICA(cliente) E PRIVADA(admin)
 
@@ -43,6 +44,7 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/services/:id" element={<ServiceDetail />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/admin-chat" element={<AdminChat />} />
         </Routes>
       </div>
 

@@ -8,14 +8,22 @@ const ChatButton = () => {
   const [showBubble, setShowBubble] = useState(true);
 
   const toggleChat = () => setIsOpen(!isOpen);
-  const hideBubble = () => setShowBubble(false);
+  const closeBubble = () => setShowBubble(false);
 
   return (
     <div className="chat-button-container">
       {isOpen && <Chat toggleChat={toggleChat} />}
 
       <div className="chat-float-wrapper">
-        {!isOpen && <span className="chat-bubble">Fale com nosso suporte!</span>}
+        {showBubble && !isOpen && (
+          <div className="chat-bubble">
+            Fale com nosso suporte!
+            <button className="chat-bubble-close" onClick={closeBubble}>
+              <X size={12} />
+            </button>
+          </div>
+        )}
+
         <button className="chat-toggle-button" onClick={toggleChat}>
           <img src="chatlogo.png" alt="Logo" className="chat-logo" />
         </button>

@@ -35,7 +35,7 @@ function AdminChat() {
     if (newMessage.trim() === '') return;
 
     await addDoc(messagesRef, {
-      name: 'Atendente',
+      user: 'Atendente', // Padronizado para 'user'
       text: newMessage,
       timestamp: serverTimestamp(),
     });
@@ -52,10 +52,13 @@ function AdminChat() {
           <div
             key={msg.id}
             className={`admin-chat-message ${
-              msg.name === 'Atendente' ? 'admin' : 'user'
+              msg.user === 'Atendente' ? 'admin' : 'user'
             }`}
           >
-            <strong>{msg.name}:</strong> {msg.text}
+            <strong>{msg.user}:</strong> {msg.text}
+            <div className="timestamp">
+              {msg.timestamp?.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+            </div>
           </div>
         ))}
       </div>
