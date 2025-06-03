@@ -31,7 +31,7 @@ const Chat = ({ toggleChat }) => {
     <div className="chat-window">
       <div className="chat-header">
         <span>📌 SuporteFix</span>
-        <button className="close-btn" onClick={toggleChat}><X size={17} color="red" style={{ marginLeft: '-7px' }} strokeWidth={3} /></button>
+        <button className="close-btn" onClick={toggleChat}><X size={17} color="grey" style={{ marginLeft: '-7px' }} strokeWidth={3} /></button>
       </div>
       <div className="chat-messages">
         {messages.map(msg => (

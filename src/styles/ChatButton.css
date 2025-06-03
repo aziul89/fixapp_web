@@ -47,8 +47,9 @@
 
 /* Cabeçalho */
 .chat-header {
-  background-color: #FFD500;
+  background-color: white;
   color: #333;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.358);
   padding: 4px;
   font-weight: bold;
   display: flex;
@@ -60,15 +61,16 @@
   background: none;
   border: none;
   cursor: pointer;
-  border-radius: 12px;
+  border-radius: 20px;
   height: 35px;
   width: 50px;
-  background-color: #e3e3e3;
+  background-color: #fff;
   transition: background-color 0.2s ease;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
 }
 
 .close-btn:hover {
-  background-color: #ffd5008d; 
+  background-color: #b69a00; 
 }
 
 /* Área de mensagens */
@@ -102,6 +104,7 @@
   font-size: 0.5rem;
   color: #999;
   margin-left: 5px;
+  
 }
 
 /* Input e botão */
@@ -180,3 +183,5 @@
   align-items: center;
   justify-content: center;
 }
+
+
