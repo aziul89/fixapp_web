@@ -35,8 +35,9 @@ function AdminChat() {
     if (newMessage.trim() === '') return;
 
     await addDoc(messagesRef, {
-      user: 'Atendente', // Padronizado para 'user'
+      user: 'Atendente',
       text: newMessage,
+      imageUrl: '', // 🔥 Garante que se for só texto, imageUrl fica vazio
       timestamp: serverTimestamp(),
     });
 
@@ -55,9 +56,28 @@ function AdminChat() {
               msg.user === 'Atendente' ? 'admin' : 'user'
             }`}
           >
-            <strong>{msg.user}:</strong> {msg.text}
+            <strong>{msg.user}:</strong>{' '}
+            {msg.text && <span>{msg.text}</span>}
+
+            {msg.imageUrl && (
+              <div>
+                <img
+                  src={msg.imageUrl}
+                  alt="imagem enviada"
+                  style={{
+                    maxWidth: '200px',
+                    borderRadius: '8px',
+                    marginTop: '5px',
+                  }}
+                />
+              </div>
+            )}
+
             <div className="timestamp">
-              {msg.timestamp?.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              {msg.timestamp?.toDate().toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit',
+              })}
             </div>
           </div>
         ))}
