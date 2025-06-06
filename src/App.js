@@ -17,6 +17,7 @@ import Services from './components/Services';
 import ScrollToTop from './components/ScrollToTop';
 import Profile from './pages/Profile';
 import ServiceDetail from './components/ServiceDetail';
+import Captcha from './components/Captcha';
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/services/:id" element={<ServiceDetail />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/captcha" element={<Captcha />} />
         </Routes>
       </div>
 

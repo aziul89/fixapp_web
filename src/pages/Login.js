@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/Register.css";
-import { useAuth } from '../context/AuthContext';
+import "../styles/Captcha.css";
+import Captcha from "../components/Captcha";
+import { useAuth } from "../context/AuthContext";
 
 function Login() {
   const navigate = useNavigate();
@@ -10,8 +12,11 @@ function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
+  const [captchaPassed, setCaptchaPassed] = useState(false);
+  const [showCheck, setShowCheck] = useState(false);
+
   const handleLogin = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
     try {
       const response = await fetch("https://ideiafix-back-end-1test.onrender.com/api/login", {
@@ -25,11 +30,8 @@ function Login() {
       }
 
       const data = await response.json();
-      
-      // Chama o contexto e salva token e usuário
-      login(data.token, data.user);
 
-      // Redireciona para página principal
+      login(data.token, data.user);
       navigate("/");
     } catch (error) {
       console.error("Erro ao logar:", error);
@@ -37,51 +39,72 @@ function Login() {
     }
   };
 
+  const handleCaptchaSuccess = () => {
+    setShowCheck(true);
+    setTimeout(() => {
+      setShowCheck(false);
+      setCaptchaPassed(true);
+    }, 1000); // 1 segundo de animação antes de exibir o login
+  };
+
   return (
     <div className="register-container">
-      <div className="register-box">
-        <h2>Faça Login</h2>
-        <form onSubmit={handleLogin}>
-          <div className="input-group">
-            <label>Email</label>
-            <input 
-              type="email" 
-              placeholder="Digite seu email" 
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required 
-            />
-          </div>
+      {!captchaPassed && (
+        <div className="captcha-overlay">
+          <Captcha onSuccess={handleCaptchaSuccess} />
+          {showCheck && (
+            <div className="captcha-check-animation">
+              ✅
+            </div>
+          )}
+        </div>
+      )}
 
-          <div className="input-group">
-            <label>Senha</label>
-            <input 
-              type="password" 
-              placeholder="Digite sua senha" 
-              value={senha}
-              onChange={(e) => setSenha(e.target.value)}
-              required 
-            />
-          </div>
+      {captchaPassed && (
+        <div className="register-box">
+          <h2>Faça Login</h2>
+          <form onSubmit={handleLogin}>
+            <div className="input-group">
+              <label>Email</label>
+              <input
+                type="email"
+                placeholder="Digite seu email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
 
-          <button type="submit" className="register-button">Entrar</button>
-        </form>
+            <div className="input-group">
+              <label>Senha</label>
+              <input
+                type="password"
+                placeholder="Digite sua senha"
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
+                required
+              />
+            </div>
 
-        <p className="login-text">
-          Não tem uma conta? <Link to="/register" className="login-link">Cadastre-se</Link>
-        </p>
-        
-        <p>
-          <Link to="/recuperar-senha" className="forpassword-link">Esqueceu a senha?</Link>
-        </p>
+            <button type="submit" className="register-button">Entrar</button>
+          </form>
 
-        {/*Login de colaboradores da empresa*/}
-        <p className="admin-text">
-          É um colaborador? <Link to="/" className="login-link">Clique aqui</Link>
-        </p>
-      </div>
+          <p className="login-text">
+            Não tem uma conta? <Link to="/register" className="login-link">Cadastre-se</Link>
+          </p>
+
+          <p>
+            <Link to="/recuperar-senha" className="forpassword-link">Esqueceu a senha?</Link>
+          </p>
+
+          <p className="admin-text">
+            É um colaborador? <Link to="/" className="login-link">Clique aqui</Link>
+          </p>
+        </div>
+      )}
     </div>
   );
 }
 
 export default Login;
+

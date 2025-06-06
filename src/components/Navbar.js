@@ -95,7 +95,28 @@ function Navbar() {
           </li>
         </ul>
 
-        {isAuthenticated ? (
+        {!isAuthenticated ? (
+          <div className="navbar-buttons">
+            <button
+              className="navbar-button"
+              onClick={() => {
+                setMenuOpen(false);
+                navigate("/register");
+              }}
+            >
+              Cadastre-se
+            </button>
+            <button
+              className="navbar-button"
+              onClick={() => {
+                setMenuOpen(false);
+                navigate("/login");
+              }}
+            >
+              Login
+            </button>
+          </div>
+        ) : (
           <div className="dropdown" ref={dropdownRef}>
             <button
               className="navbar-button dropdown-toggle"
@@ -125,17 +146,8 @@ function Navbar() {
               </button>
             </div>
           </div>
-        ) : (
-          <button
-            className="navbar-button"
-            onClick={() => {
-              setMenuOpen(false);
-              navigate("/register");
-            }}
-          >
-            Contratar
-          </button>
         )}
+
       </nav>
     </header>
   );

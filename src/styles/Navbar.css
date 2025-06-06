@@ -69,6 +69,11 @@ nav ul li {
   background: #b69a00;
 }
 
+.navbar-buttons {
+  display: flex;
+  gap: 5px;
+}
+
 /* Dropdown */
 .dropdown {
   position: relative;
