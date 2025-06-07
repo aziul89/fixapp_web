@@ -71,9 +71,9 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 
 
-app = FastAPI()
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+= FastAPI()
+ fastapi import FastAPI
+fastapi.middleware.cors import CORSMiddleware
 # Lista de origens que podem acessar a API
 origins = [
     "http://localhost:3000",  # se estiver rodando localmente
