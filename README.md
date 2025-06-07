@@ -70,11 +70,10 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
 
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
-
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 # Lista de origens que podem acessar a API
 origins = [
     "http://localhost:3000",  # se estiver rodando localmente
@@ -88,3 +87,5 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Suas rotas aqui...
