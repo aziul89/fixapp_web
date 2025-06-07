@@ -2,10 +2,14 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../styles/Captcha.css';
 
+const comparar = (shape, shapeApi) => {
+  return shape === shapeApi;
+};
+
 const shapeMap = {
-  circle: 'círculo',
-  triangle: 'triângulo',
-  square: 'quadrado',
+  circles: 'círculo',
+  triangles: 'triângulo',
+  squares: 'quadrado',
 };
 
 const shapes = Object.keys(shapeMap);
@@ -19,13 +23,13 @@ const generateShapeImage = (shape) => {
   ctx.clearRect(0, 0, 100, 100);
   ctx.fillStyle = '#3c3c3c';
 
-  if (shape === 'circle') {
+  if (shape === 'circles') {
     ctx.beginPath();
     ctx.arc(50, 50, 30, 0, 2 * Math.PI);
     ctx.fill();
-  } else if (shape === 'square') {
+  } else if (shape === 'squares') {
     ctx.fillRect(30, 30, 40, 40);
-  } else if (shape === 'triangle') {
+  } else if (shape === 'triangles') {
     ctx.beginPath();
     ctx.moveTo(50, 20);
     ctx.lineTo(30, 70);
@@ -43,17 +47,17 @@ const Captcha = ({ onSuccess }) => {
   const [error, setError] = useState('');
 
   const generateCaptcha = () => {
-    
     const correctShape = shapes[Math.floor(Math.random() * shapes.length)];
 
     const otherShapes = shapes.filter(shape => shape !== correctShape);
     const shuffledOthers = otherShapes.sort(() => 0.5 - Math.random());
     const selectedShapes = [correctShape, ...shuffledOthers.slice(0, 2)];
 
-
-    // Embaralha as formas
     const mixedShapes = selectedShapes
-      .map(shape => ({ shape, img: generateShapeImage(shape) }))
+      .map(shape => ({
+        img: generateShapeImage(shape),
+        shape, // armazenado localmente, não enviado
+      }))
       .sort(() => 0.5 - Math.random());
 
     setTargetShape(correctShape);
@@ -75,30 +79,34 @@ const Captcha = ({ onSuccess }) => {
     return new File([u8arr], filename, { type: mime });
   };
 
-  // Converte em arquivo.png
-  const handleSelect = async (selectedImg) => { 
+  const handleSelect = async (selectedImg) => {
     try {
       const formData = new FormData();
       const imageFile = dataURLtoFile(selectedImg, 'captcha.png');
-
       formData.append('image', imageFile);
-      formData.append('shape', targetShape);
 
       const res = await axios.post(
-        'http://apicaptcha-xzmu.onrender.com/captcha/recognize',
+        'https://apicaptcha-xzmu.onrender.com/captcha/recognize',
         formData,
         { headers: { 'Content-Type': 'multipart/form-data' } }
       );
 
-      if (res.data.success) {
+      const shapeReconhecido = res.data?.shape;
+
+      if (!shapeReconhecido) {
+        throw new Error('Resposta da API inválida.');
+      }
+
+      if (comparar(targetShape, shapeReconhecido)) {
         if (onSuccess) onSuccess();
       } else {
         setError('Resposta incorreta. Tente novamente.');
         generateCaptcha();
       }
+
     } catch (err) {
       console.error(err);
-      setError('Erro ao verificar. Tente novamente.');
+      setError('Erro ao verificar. A API pode estar fora do ar.');
     }
   };
 
@@ -113,7 +121,7 @@ const Captcha = ({ onSuccess }) => {
           <img
             key={index}
             src={opt.img}
-            alt={opt.shape}
+            alt="Captcha shape"
             className="captcha-image"
             onClick={() => handleSelect(opt.img)}
           />
