@@ -52,11 +52,7 @@ function Login() {
       {!captchaPassed && (
         <div className="captcha-overlay">
           <Captcha onSuccess={handleCaptchaSuccess} />
-          {showCheck && (
-            <div className="captcha-check-animation">
-              ✅
-            </div>
-          )}
+          
         </div>
       )}
 
