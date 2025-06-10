@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import "./App.css"
 
 import Home from './pages/Home';
 import Register from './pages/Register';
@@ -15,13 +16,20 @@ import Footer from './components/Footer';
 import Services from './components/Services';
 import ScrollToTop from './components/ScrollToTop';
 import Profile from './pages/Profile';
+<<<<<<< HEAD
 import HomeDashboard from './dashboard/homeDashboard';
 import AgendamentoDetail from './dashboard/agendamentoDetail';
+=======
+import ServiceDetail from './components/ServiceDetail';
+import Captcha from './components/Captcha';
+
+>>>>>>> 43bf827505c1c72f7c652eaaafef51e157f44d22
 function App() {
   return (
     <>
       <Navbar />
       <ScrollToTop />
+<<<<<<< HEAD
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
@@ -39,8 +47,30 @@ function App() {
         <Route path="/agendamentos/:id" element={<AgendamentoDetail />} />
        
       </Routes>
+=======
+      
+      <div className="main-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/register2" element={<Register2 />} />
+          <Route path="/register3" element={<Register3 />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/aboutus" element={<AboutUs />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/recuperar-senha" element={<RecuperarSenha />} />
+          <Route path="/como-funciona" element={<ComoFunciona />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/services/:id" element={<ServiceDetail />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/captcha" element={<Captcha />} />
+        </Routes>
+      </div>
+
+>>>>>>> 43bf827505c1c72f7c652eaaafef51e157f44d22
       <Footer />
-    </>
+  </>
+
   );
 }
 

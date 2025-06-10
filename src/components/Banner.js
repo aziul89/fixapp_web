@@ -11,8 +11,8 @@ function Banner() {
   const { isAuthenticated } = useAuth(); 
 
   const images = [
-    "/images/info1.png",
-    "https://img.freepik.com/vetores-gratis/modelo-de-banner-engracado-da-black-friday-com-balao-e-fundo-de-zoom-em-quadrinhos_69286-219.jpg?ga=GA1.1.1617786885.1714433104&semt=ais_hybrid&w=740",
+    "/images/infos.png",
+    "/images/infos.png",
     "/images/info1.png",
     "/images/info1.png",
   ];

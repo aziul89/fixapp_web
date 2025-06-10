@@ -68,3 +68,24 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+= FastAPI()
+ fastapi import FastAPI
+fastapi.middleware.cors import CORSMiddleware
+# Lista de origens que podem acessar a API
+origins = [
+    "http://localhost:3000",  # se estiver rodando localmente
+    "https://super-duper-train-gg74r669x942vx6w-3000.app.github.dev",  # GitHub Codespaces
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,  # ou ["*"] para permitir todas
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Suas rotas aqui...
