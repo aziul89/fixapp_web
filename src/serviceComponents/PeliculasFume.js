@@ -15,11 +15,37 @@ function PeliculaFume() {
   const [horaServico, setHoraServico] = useState('');
   const hoje = new Date().toISOString().split('T')[0];
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const token = localStorage.getItem('token');
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  const token = localStorage.getItem('token');
 
-    if (token) {
+  if (!token) {
+    navigate('/register');
+    return;
+  }
+
+  const payload = {
+    densidade,
+    local,
+    altura,
+    unidadeAltura,
+    largura,
+    unidadeLargura,
+    dataServico,
+    horaServico
+  };
+
+  try {
+    const response = await fetch('http://localhost:3001/pelicula-fume', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (response.ok) {
       setShowPopup(true);
       setDensidade('');
       setLocal('');
@@ -27,10 +53,15 @@ function PeliculaFume() {
       setUnidadeAltura('');
       setLargura('');
       setUnidadeLargura('');
+      setDataServico('');
+      setHoraServico('');
     } else {
-      navigate('/register');
+      console.error('Erro ao enviar dados:', await response.text());
     }
-  };
+  } catch (error) {
+    console.error('Erro de rede:', error);
+  }
+};
 
   return (
     <>

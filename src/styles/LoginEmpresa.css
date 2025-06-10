@@ -1,0 +1,65 @@
+.empresa-login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #e6e6e6;
+}
+
+.login-box {
+  background: white;
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+}
+
+.logo-img {
+  width: 150px;
+  height: auto;
+  margin: 0 auto 24px;
+  display: block;
+}
+
+.login-box form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-box label {
+  margin: 0.5rem 0 0.3rem;
+  color: #2D3338;
+}
+
+.login-box input {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  transition: border 0.3s;
+}
+
+.login-box input:focus {
+  border-color: #FC3F75;
+  outline: none;
+}
+
+.login-box button {
+  display: block;
+  margin: 0 auto; 
+  padding: 0.75rem;
+  width: 50%;
+  background-color: #FC3F75;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+
+.login-box button:hover {
+  background-color: #c52c57;
+}

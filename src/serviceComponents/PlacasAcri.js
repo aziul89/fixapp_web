@@ -15,11 +15,37 @@ function PlacaAcrilico() {
   const [horaServico, setHoraServico] = useState('');
   const hoje = new Date().toISOString().split('T')[0];
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const token = localStorage.getItem('token');
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  const token = localStorage.getItem('token');
 
-    if (token) {
+  if (!token) {
+    navigate('/register');
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('cor', cor);
+  formData.append('altura', altura);
+  formData.append('unidadeAltura', unidadeAltura);
+  formData.append('largura', largura);
+  formData.append('unidadeLargura', unidadeLargura);
+  formData.append('dataServico', dataServico);
+  formData.append('horaServico', horaServico);
+  formData.append('arquivo', arquivo); // precisa que backend aceite upload
+  formData.append('servico', 'Placa de Acrílico'); 
+  formData.append('cliente', 'Nome do cliente');
+
+  try {
+    const response = await fetch('https://seu-backend.com/agendamentos', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    if (response.ok) {
       setShowPopup(true);
       setCor('');
       setAltura('');
@@ -27,10 +53,15 @@ function PlacaAcrilico() {
       setLargura('');
       setUnidadeLargura('');
       setArquivo('');
+      setDataServico('');
+      setHoraServico('');
     } else {
-      navigate('/register');
+      alert('Erro ao enviar agendamento.');
     }
-  };
+  } catch (error) {
+    console.error('Erro no envio:', error);
+  }
+};
 
   return (
     <>

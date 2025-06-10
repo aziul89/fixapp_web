@@ -101,10 +101,10 @@ function Navbar() {
               className="navbar-button"
               onClick={() => {
                 setMenuOpen(false);
-                navigate("/register");
+                navigate("/login-empresa");
               }}
             >
-              Cadastre-se
+              Área do colaborador
             </button>
             <button
               className="navbar-button"

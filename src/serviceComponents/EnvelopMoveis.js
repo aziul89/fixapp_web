@@ -18,23 +18,56 @@ function EnvelopamentoMoveis() {
   const [horaServico, setHoraServico] = useState('');
   const hoje = new Date().toISOString().split('T')[0];
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
 
     if (token) {
-      setShowPopup(true);
+      const dados = {
+        tipoServico: 'Envelopamento de Móveis',
+        tipoMovel,
+        altura,
+        unidadeAltura,
+        largura,
+        unidadeLargura,
+        profundidade,
+        unidadeProfundidade,
+        modeloAdesivo,
+        corAdesivo,
+        dataServico,
+        horaServico,
+      };
 
-      setTipoMovel('');
-      setAltura('');
-      setUnidadeAltura('');
-      setLargura('');
-      setUnidadeLargura('');
-      setProfundidade('');
-      setUnidadeProfundidade('');
-      setModeloAdesivo('');
-      setCorAdesivo('');
+      try {
+        const response = await fetch('http://localhost:8081/servicos', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(dados),
+        });
 
+        if (response.ok) {
+          setShowPopup(true);
+          setTipoMovel('');
+          setAltura('');
+          setUnidadeAltura('');
+          setLargura('');
+          setUnidadeLargura('');
+          setProfundidade('');
+          setUnidadeProfundidade('');
+          setModeloAdesivo('');
+          setCorAdesivo('');
+          setDataServico('');
+          setHoraServico('');
+        } else {
+          alert('Erro ao enviar os dados. Verifique os campos e tente novamente.');
+        }
+      } catch (error) {
+        console.error('Erro na requisição:', error);
+        alert('Erro ao conectar com o servidor.');
+      }
     } else {
       navigate('/register');
     }

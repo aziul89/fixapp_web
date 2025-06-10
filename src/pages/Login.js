@@ -94,7 +94,7 @@ function Login() {
           </p>
 
           <p className="admin-text">
-            É um colaborador? <Link to="/" className="login-link">Clique aqui</Link>
+            É um colaborador? <Link to="/login-empresa" className="login-link">Clique aqui</Link>
           </p>
         </div>
       )}

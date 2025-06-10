@@ -16,21 +16,52 @@ function AdesivoParede() {
   const [horaServico, setHoraServico] = useState('');
   const hoje = new Date().toISOString().split('T')[0]; // pega a data no formato aaaa-mm-dd
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
-    if (token) {
-      setShowPopup(true);
 
-      setNumParedes('');
-      setAltura('');
-      setUnidadeAltura('');
-      setLargura('');
-      setUnidadeLargura('');
-      setTipoAdesivo('');
-      setCorAdesivo('');
-      setDataServico('');
-      setHoraServico('');
+    if (token) {
+      const dados = {
+        tipoServico: 'Adesivo de Parede',
+        numParedes,
+        altura,
+        unidadeAltura,
+        largura,
+        unidadeLargura,
+        tipoAdesivo,
+        corAdesivo,
+        dataServico,
+        horaServico,
+      };
+
+      try {
+        const response = await fetch('http://localhost:8081/servicos', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(dados),
+        });
+
+        if (response.ok) {
+          setShowPopup(true);
+          setNumParedes('');
+          setAltura('');
+          setUnidadeAltura('');
+          setLargura('');
+          setUnidadeLargura('');
+          setTipoAdesivo('');
+          setCorAdesivo('');
+          setDataServico('');
+          setHoraServico('');
+        } else {
+          alert('Erro ao enviar os dados. Verifique os campos e tente novamente.');
+        }
+      } catch (error) {
+        console.error('Erro na requisição:', error);
+        alert('Erro ao conectar com o servidor.');
+      }
     } else {
       navigate('/register');
     }

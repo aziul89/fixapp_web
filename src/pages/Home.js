@@ -11,9 +11,6 @@ function Home() {
   };
   return (
     <div className="home-container">
-  <button onClick={irParaOutraPagina}>
-      Ir para outra rota
-    </button>
       <Banner />
       <Services />
       <Chatbot />
