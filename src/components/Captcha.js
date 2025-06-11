@@ -10,6 +10,15 @@ const shapeMap = {
 
 const shapes = Object.keys(shapeMap);
 
+const preloadImages = (shapeList, total = 3) => {
+  shapeList.forEach(shape => {
+    for (let i = 1; i <= total; i++) {
+      const img = new Image();
+      img.src = `/captcha_visual/${shape}/${i}.png`;
+    }
+  });
+};
+
 const dataURLtoFile = (dataurl, filename) => {
   const arr = dataurl.split(',');
   const mime = arr[0].match(/:(.*?);/)[1];
@@ -21,7 +30,7 @@ const dataURLtoFile = (dataurl, filename) => {
 
 const getRandomImagePath = (shape, total = 3) => {
   const idx = Math.floor(Math.random() * total) + 1;
-  return `/images/${shape}/${idx}.png`;
+  return `/captcha_visual/${shape}/${idx}.png`;
 };
 
 const imageToDataUrl = (src) =>
@@ -67,6 +76,7 @@ const Captcha = ({ onSuccess }) => {
   };
 
   useEffect(() => {
+    preloadImages(shapes);
     generateCaptcha();
   }, []);
 
@@ -119,6 +129,7 @@ const Captcha = ({ onSuccess }) => {
           <img
             key={index}
             src={opt.img}
+            loading="lazy"
             alt={`Imagem de ${shapeMap[opt.shape]}`}
             className={`captcha-image ${loading || success ? 'disabled' : ''}`}
             onClick={() => handleSelect(opt.img)}
