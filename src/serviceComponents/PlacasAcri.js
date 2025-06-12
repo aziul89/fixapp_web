@@ -5,6 +5,7 @@ function PlacaAcrilico() {
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
 
+  const [quantidade, setQuantidade] = useState('');
   const [cor, setCor] = useState('');
   const [altura, setAltura] = useState('');
   const [unidadeAltura, setUnidadeAltura] = useState('');
@@ -67,6 +68,16 @@ function PlacaAcrilico() {
     <>
       <form onSubmit={handleSubmit} className="service-form">
         <h3>Preencha os dados abaixo:</h3>
+        
+        <div className="form-group">
+          <label>Quantidade de placas:</label>
+          <input
+            type="number"
+            value={quantidade}
+            onChange={(e) => setQuantidade(e.target.value)}
+            required
+          />
+        </div>
 
         <div className="form-group">
           <label>Cor do acrílico:</label>
