@@ -2,8 +2,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 80px; /* Espaço para o navbar */
-    padding-bottom: 100px; /* Espaço para o footer */
+    padding-top: 150px; /* Espaço para o navbar */
+    padding-bottom: 150px; /* Espaço para o footer */
     height: 100vh;
 
     background: linear-gradient(135deg, #FC3F75, #f6a0b9);
@@ -171,6 +171,3 @@
     box-sizing: border-box; 
   }
 }
-
-
-  

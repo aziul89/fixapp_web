@@ -1,5 +1,5 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import "../styles/Register.css";
+import "../styles/Register3.css";
 import ProgressBar from "../components/ProgressBar";
 import { useState } from "react";
 
