@@ -11,7 +11,7 @@ import ComoFunciona from "../pages/ComoFunciona";
 import Services from "../components/Services";
 import ServiceDetail from "../components/ServiceDetail";
 import Profile from "../pages/Profile";
-import Captcha from "../components/Captcha";
+import NotFound from "../components/NotFound"
 
 function ClientRoutes() {
   return (
@@ -28,7 +28,8 @@ function ClientRoutes() {
       <Route path="/services" element={<Services />} />
       <Route path="/services/:id" element={<ServiceDetail />} />
       <Route path="/profile" element={<Profile />} />
-      <Route path="/captcha" element={<Captcha />} />
+      <Route path="*" element={<NotFound />} />
+      
     </Routes>
   );
 }

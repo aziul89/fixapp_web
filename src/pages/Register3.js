@@ -16,7 +16,6 @@ function Register3() {
   const [estado, setEstado] = useState("");
   const [complemento, setComplemento] = useState("");
 
-  // Buscar endereço pelo CEP via API viacep
   const buscarEndereco = async (cepDigitado) => {
     const cepLimpo = cepDigitado.replace(/\D/g, "");
     if (cepLimpo.length !== 8) return;
@@ -50,7 +49,6 @@ function Register3() {
       return;
     }
 
-    // Monta objeto do endereço, incluindo clienteId para a FK
     const endereco = {
       cep,
       rua,
@@ -58,13 +56,11 @@ function Register3() {
       cidade,
       estado,
       complemento,
-      clienteId, // FK obrigatória para o backend
+      clienteId,
     };
 
-    console.log("Dados a enviar para backend:", endereco);
-
     try {
-      const response = await fetch("https://ideiafix-back-end-1test.onrender.com/endere", { // Ajuste endpoint conforme seu backend
+      const response = await fetch("https://ideiafix-back-end-1test.onrender.com/endere", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -72,10 +68,7 @@ function Register3() {
         body: JSON.stringify(endereco),
       });
 
-      console.log("Resposta do fetch:", response);
-
       const data = await response.json();
-      console.log("Resposta JSON do servidor:", data);
 
       if (!response.ok) {
         alert("Erro ao salvar o endereço: " + (data.message || JSON.stringify(data)));
@@ -84,8 +77,6 @@ function Register3() {
 
       alert("Endereço salvo com sucesso!");
       navigate("/login");
-    //navigate("/profile", { state: { clienteId } });
-
     } catch (error) {
       console.error("Erro de rede:", error);
       alert("Erro ao salvar o endereço. Verifique a conexão e tente novamente.");
@@ -108,7 +99,7 @@ function Register3() {
                 onChange={(e) => setCep(e.target.value)}
                 onBlur={() => buscarEndereco(cep)}
                 required
-                maxLength={9} // para formatar com hífen se quiser depois
+                maxLength={9}
               />
             </div>
 
@@ -175,6 +166,7 @@ function Register3() {
               id="termos"
               checked={acceptedTerms}
               onChange={(e) => setAcceptedTerms(e.target.checked)}
+              required
             />
             <label htmlFor="termos">
               Eu concordo com os{" "}
@@ -184,8 +176,7 @@ function Register3() {
               e a{" "}
               <a href="/privacidade" target="_blank" rel="noopener noreferrer">
                 Política de Privacidade
-              </a>
-              .
+              </a>.
             </label>
           </div>
 
@@ -199,7 +190,6 @@ function Register3() {
         </p>
       </div>
     </div>
-
   );
 }
 
