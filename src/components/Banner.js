@@ -39,7 +39,7 @@ function Banner() {
                   <h1>Aplicação de Películas</h1>
                   <p>Plataforma de contratação de serviços da IdeaFix.</p>
                   <button className="cta-button" onClick={() => navigate("/register")}>
-                    Contrate agora
+                    Contrate agora!
                   </button>
                 </div>
               )}
