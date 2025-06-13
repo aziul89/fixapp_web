@@ -39,7 +39,7 @@ function PortfolioCarousel() {
   return (
     <div>
       <section className="carousel-wrapper">
-        <h2 className="showcase-title">Nosso Portfólio</h2>
+        <h2 className="showcase-title">PROJETOS RECENTES</h2>
         <Carousel responsive={responsive} autoPlay={true} infinite={true}>
           {portfolio1.map((item, index) => (
             <div key={`first-${index}`} className="carousel-card">

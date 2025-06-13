@@ -48,7 +48,7 @@ function Services() {
   return (
     <>
       <section className="service-carousel-wrapper">
-        <h2 className="service-carousel-heading">Nossos Serviços</h2>
+        <h2 className="service-carousel-heading">NOSSOS SERVIÇOS</h2>
         <Carousel
           responsive={responsive}
           infinite
