@@ -2,7 +2,6 @@ import Navbar from "../components/Navbar";
 import Banner from "../components/Banner";
 import Services from "../components/Services";
 import Footer from "../components/Footer";
-import Chatbot from "../components/Chatbot";
 import { useNavigate } from 'react-router-dom';
 function Home() {
    const navigate = useNavigate();
@@ -13,7 +12,6 @@ function Home() {
     <div className="home-container">
       <Banner />
       <Services />
-      <Chatbot />
     </div>
   );
 }

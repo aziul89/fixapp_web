@@ -37,7 +37,7 @@ function LoginFuncionario() {
       localStorage.setItem("user", JSON.stringify(data.user));
 
       // Redireciona para painel do funcionário
-     navigate("/homedashboard");
+     navigate("/dashboard");
     } catch (error) {
       alert(error.message || "Falha ao tentar logar");
     }

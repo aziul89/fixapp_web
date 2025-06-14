@@ -17,7 +17,7 @@ import Services from './components/Services';
 import ServiceDetail from './components/ServiceDetail';
 import Profile from './pages/Profile';
 
-import HomeDashboard from './dashboard/HomeDashboard';
+import Dashboard from './dashboard/Dashboard';
 import AgendamentoDetail from './dashboard/AgendamentoDetail';
 import LoginEmpresa from './pages/LoginEmpresa';
 
@@ -26,7 +26,7 @@ import NotFound from './components/NotFound';
 function App() {
   const location = useLocation();
 
-  const adminPaths = ["/homedashboard", "/agendamentos", "/login-empresa"];
+  const adminPaths = ["/dashboard", "/agendamentos", "/login-empresa"];
   const isAdminRoute = adminPaths.some(path => location.pathname.startsWith(path));
 
   return (
@@ -55,7 +55,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
 
           {/* Rotas admin */}
-          <Route path="/homedashboard" element={<HomeDashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/agendamentos/:id" element={<AgendamentoDetail />} />
           <Route path="/login-empresa" element={<LoginEmpresa />} />
 

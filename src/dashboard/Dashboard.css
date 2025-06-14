@@ -1,0 +1,83 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  background-color: #f4f6f8;
+  color: #333;
+}
+
+.dashboard-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+.dashboard-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #2c3e50;
+}
+
+.dashboard-table {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dashboard-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  padding: 12px 20px;
+  border-radius: 12px;
+  background-color: #f9fafb;
+  transition: background-color 0.2s ease;
+}
+
+.dashboard-header {
+  font-weight: 600;
+  background-color: #e3e8ef;
+  color: #374151;
+}
+
+.dashboard-clickable {
+  cursor: pointer;
+}
+
+.dashboard-clickable:hover {
+  background-color: #e0f2fe;
+}
+
+.dashboard-row span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Responsivo para telas menores */
+@media (max-width: 768px) {
+  .dashboard-row {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 10px;
+  }
+
+  .dashboard-header {
+    display: none;
+  }
+
+  .dashboard-clickable span {
+    justify-content: flex-start;
+  }
+
+  .dashboard-clickable::before {
+    content: '→';
+    position: absolute;
+    right: 20px;
+    font-size: 1.2em;
+    color: #60a5fa;
+  }
+}
+

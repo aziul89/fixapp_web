@@ -1,13 +1,14 @@
+
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './HomeDashboard.css';
+import './Dashboard.css';
 
-function HomeDashboard() {
+function Dashboard() {
   const [agendamentos, setAgendamentos] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('link')
+    fetch('link') // Substitua 'link' pela URL real da API
       .then((res) => res.json())
       .then((data) => {
         setAgendamentos(data);
@@ -22,11 +23,11 @@ function HomeDashboard() {
   };
 
   return (
-    <div className="home-container">
-      <h1 className="title">Agendamentos</h1>
+    <div className="dashboard-container">
+      <h1 className="dashboard-title">Agendamentos</h1>
 
-      <div className="tabela">
-        <div className="linha header">
+      <div className="dashboard-table">
+        <div className="dashboard-row dashboard-header">
           <span>Cliente</span>
           <span>Serviço</span>
           <span>Data</span>
@@ -36,7 +37,7 @@ function HomeDashboard() {
 
         {agendamentos.map((item) => (
           <div
-            className="linha clickable"
+            className="dashboard-row dashboard-clickable"
             key={item.id}
             onClick={() => handleClick(item.id)}
           >
@@ -52,4 +53,4 @@ function HomeDashboard() {
   );
 }
 
-export default HomeDashboard;
+export default Dashboard;
