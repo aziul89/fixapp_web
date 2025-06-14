@@ -145,7 +145,7 @@
 
 .checkbox-container a {
   color: #1a0dab;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .checkbox-container a:hover {

@@ -145,11 +145,16 @@
 
 .checkbox-container a {
   color: #1a0dab;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .checkbox-container a:hover {
   color: #b69a00;
+}
+
+.login-link:hover {
+  color: #FC3F75;
+  font-weight: bold;
 }
 
 @media (max-width: 768px) {

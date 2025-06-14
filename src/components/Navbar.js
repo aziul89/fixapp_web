@@ -104,7 +104,7 @@ function Navbar() {
                 navigate("/login-empresa");
               }}
             >
-              Área do colaborador
+              Entrar como funcionário
             </button>
             <button
               className="navbar-button"
@@ -113,7 +113,7 @@ function Navbar() {
                 navigate("/login");
               }}
             >
-              Login
+              Contratar
             </button>
           </div>
         ) : (

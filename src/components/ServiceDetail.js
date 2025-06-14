@@ -78,7 +78,7 @@ function ServiceDetail() {
         return <PeliculaFume service={service} />;
       }
 
-      return <p>Formulário não disponível para este serviço.</p>;
+      return <p>Serviço indisponível.</p>;
 
   };
 
