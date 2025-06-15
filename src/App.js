@@ -16,6 +16,7 @@ import ComoFunciona from './pages/ComoFunciona';
 import Services from './components/Services';
 import ServiceDetail from './components/ServiceDetail';
 import Profile from './pages/Profile';
+import Chatbot from './components/Chatbot';
 
 import Dashboard from './dashboard/Dashboard';
 import AgendamentoDetail from './dashboard/AgendamentoDetail';
@@ -64,6 +65,7 @@ function App() {
         </Routes>
       </div>
 
+      {!isAdminRoute && <Chatbot />}
       {!isAdminRoute && <Footer />}
     </>
   );
