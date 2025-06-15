@@ -12,7 +12,7 @@ function LoginFuncionario() {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://ideiafix-back-end-1test.onrender.com/api/loginc", {
+      const response = await fetch("https://ideiafix-back-end-1test.onrender.com/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
