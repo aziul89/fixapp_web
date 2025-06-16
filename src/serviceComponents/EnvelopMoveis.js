@@ -1,5 +1,7 @@
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useAuth } from '../context/AuthContext';
+
 
 function EnvelopamentoMoveis() {
   const navigate = useNavigate();
@@ -17,59 +19,114 @@ function EnvelopamentoMoveis() {
   const [dataServico, setDataServico] = useState('');
   const [horaServico, setHoraServico] = useState('');
   const hoje = new Date().toISOString().split('T')[0];
+  const { user, token } = useAuth();
+  const {id} = useParams();
+  const [clienteId, setClienteId] = useState(null);
+
+
+  const resetForm = () => {
+    setTipoMovel('');
+    setAltura('');
+    setUnidadeAltura('');
+    setLargura('');
+    setUnidadeLargura('');
+    setProfundidade('');
+    setUnidadeProfundidade('');
+    setModeloAdesivo('');
+    setCorAdesivo('');
+    setDataServico('');
+    setHoraServico('');
+  };
+  useEffect(() => {
+  const fetchCliente = async () => {
+    try {
+      const response = await fetch(`https://ideiafix-back-end-1test.onrender.com/api/${user.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) throw new Error('Erro ao buscar cliente');
+
+      const data = await response.json();
+      const idCliente = data.Cliente?.id;
+
+      if (idCliente) {
+        setClienteId(idCliente);
+      } else {
+        alert('Cliente não encontrado');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Erro ao carregar dados do cliente');
+    }
+  };
+
+  if (user?.id && token) {
+    fetchCliente();
+  }
+}, [user, token]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem('token');
+    if (!clienteId) {
+  alert("ID do cliente ainda não carregado.");
+  return;
+}
 
-    if (token) {
-      const dados = {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/register');
+      return;
+    }
+
+    // Aqui você precisa ajustar clienteId, servicoId e materialId conforme seu contexto
+    // Estou deixando valores fixos para exemplo, você pode pegar dinamicamente depois
+    const materialId = 2; 
+    const servicoId=id;// ou o ID correto do material, se você tiver
+    
+
+    const dados = {
+      clienteId,
+      servicoId: Number(servicoId),
+      materialId,
+      largura: Number(largura),
+      unidadeLargura,
+      altura: Number(altura),
+      unidadeAltura,
+      dataServico,
+      horaServico,
+      observacoes: '', // pode colocar algum campo de observações se quiser
+      dadosExtras: {
         tipoServico: 'Envelopamento de Móveis',
         tipoMovel,
-        altura,
-        unidadeAltura,
-        largura,
-        unidadeLargura,
-        profundidade,
+        profundidade: Number(profundidade),
         unidadeProfundidade,
         modeloAdesivo,
         corAdesivo,
-        dataServico,
-        horaServico,
-      };
+      },
+    };
 
-      try {
-        const response = await fetch('http://localhost:8081/servicos', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(dados),
-        });
+    try {
+      const response = await fetch('https://ideiafix-back-end-1test.onrender.com/orcamento', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(dados),
+      });
 
-        if (response.ok) {
-          setShowPopup(true);
-          setTipoMovel('');
-          setAltura('');
-          setUnidadeAltura('');
-          setLargura('');
-          setUnidadeLargura('');
-          setProfundidade('');
-          setUnidadeProfundidade('');
-          setModeloAdesivo('');
-          setCorAdesivo('');
-          setDataServico('');
-          setHoraServico('');
-        } else {
-          alert('Erro ao enviar os dados. Verifique os campos e tente novamente.');
-        }
-      } catch (error) {
-        console.error('Erro na requisição:', error);
-        alert('Erro ao conectar com o servidor.');
+      if (response.ok) {
+        setShowPopup(true);
+        resetForm();
+      } else {
+        alert('Erro ao enviar os dados. Verifique os campos e tente novamente.');
       }
-    } else {
-      navigate('/register');
+    } catch (error) {
+      console.error('Erro na requisição:', error);
+      alert('Erro ao conectar com o servidor.');
     }
   };
 
@@ -118,67 +175,73 @@ function EnvelopamentoMoveis() {
           />
         </div>
 
-      <div className="form-section">
-        <p><strong>Informe as dimensões da área de aplicação</strong></p>
+        <div className="form-section">
+          <p><strong>Informe as dimensões da área de aplicação</strong></p>
 
-        <div className="form-group">
-          <label>Altura:</label>
-          <div className="input-row">
-            <input
-              type="text"
-              value={altura}
-              onChange={(e) => setAltura(e.target.value)}
-              required
-              style={{ flex: '2' }}
-            />
-            <select
-              value={unidadeAltura}
-              onChange={(e) => setUnidadeAltura(e.target.value)}
-              required
-              style={{ flex: '1' }}
-            >
-              <option value="">Unidade de medida</option>
-              <option value="mm">mm</option>
-              <option value="cm">cm</option>
-              <option value="m">m</option>
-            </select>
+          <div className="form-group">
+            <label>Altura:</label>
+            <div className="input-row">
+              <input
+                type="number"
+                value={altura}
+                onChange={(e) => setAltura(e.target.value)}
+                required
+                style={{ flex: '2' }}
+                min="0"
+                step="any"
+              />
+              <select
+                value={unidadeAltura}
+                onChange={(e) => setUnidadeAltura(e.target.value)}
+                required
+                style={{ flex: '1' }}
+              >
+                <option value="">Unidade de medida</option>
+                <option value="mm">mm</option>
+                <option value="cm">cm</option>
+                <option value="m">m</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label>Largura:</label>
+            <div className="input-row">
+              <input
+                type="number"
+                value={largura}
+                onChange={(e) => setLargura(e.target.value)}
+                required
+                style={{ flex: '2' }}
+                min="0"
+                step="any"
+              />
+              <select
+                value={unidadeLargura}
+                onChange={(e) => setUnidadeLargura(e.target.value)}
+                required
+                style={{ flex: '1' }}
+              >
+                <option value="">Unidade de medida</option>
+                <option value="mm">mm</option>
+                <option value="cm">cm</option>
+                <option value="m">m</option>
+              </select>
+            </div>
           </div>
         </div>
-
-        <div className="form-group">
-          <label>Largura:</label>
-          <div className="input-row">
-            <input
-              type="text"
-              value={largura}
-              onChange={(e) => setLargura(e.target.value)}
-              required
-              style={{ flex: '2' }}
-            />
-            <select
-              value={unidadeLargura}
-              onChange={(e) => setUnidadeLargura(e.target.value)}
-              required
-              style={{ flex: '1' }}
-            >
-              <option value="">Unidade de medida</option>
-              <option value="mm">mm</option>
-              <option value="cm">cm</option>
-              <option value="m">m</option>
-            </select>
-          </div>
-        </div>
-      </div>
 
         <div className="form-group">
           <label>Profundidade:</label>
           <div className="input-row">
             <input
-              type="text"
+              type="number"
               value={profundidade}
               onChange={(e) => setProfundidade(e.target.value)}
               required
               style={{ flex: '2' }}
+              min="0"
+              step="any"
             />
             <select
               value={unidadeProfundidade}

@@ -1,22 +1,31 @@
-
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext'; // importa o contexto
 import './Dashboard.css';
 
 function Dashboard() {
   const [agendamentos, setAgendamentos] = useState([]);
   const navigate = useNavigate();
+  const { token, isAuthenticated } = useAuth(); // pega token
 
   useEffect(() => {
-    fetch('link') // Substitua 'link' pela URL real da API
-      .then((res) => res.json())
-      .then((data) => {
-        setAgendamentos(data);
+    if (!isAuthenticated) return;
+
+    fetch('https://ideiafix-back-end-1test.onrender.com/orcamento', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error('Erro ao buscar orçamentos');
+        return res.json();
       })
-      .catch((error) => {
-        console.error('Erro ao buscar agendamentos:', error);
+      .then((data) => setAgendamentos(data))
+      .catch((err) => {
+        console.error(err);
+        alert("Erro ao carregar Agendamentos");
       });
-  }, []);
+  }, [token, isAuthenticated]);
 
   const handleClick = (id) => {
     navigate(`/agendamentos/${id}`);
@@ -41,10 +50,10 @@ function Dashboard() {
             key={item.id}
             onClick={() => handleClick(item.id)}
           >
-            <span>{item.cliente}</span>
-            <span>{item.servico}</span>
-            <span>{item.data}</span>
-            <span>{item.horario}</span>
+            <span>{item.Cliente?.id}</span>
+            <span>{item.servico?.nome}</span>
+            <span>{new Date(item.dataServico).toLocaleDateString('pt-BR')}</span>
+            <span>{item.horaServico}</span>
             <span>{item.status}</span>
           </div>
         ))}

@@ -1,8 +1,12 @@
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useAuth } from '../context/AuthContext';
 
 function SinalizacaoVeiculo() {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const { user, token } = useAuth();
+  const [clienteId, setClienteId] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
 
   const [modelo, setModelo] = useState('');
@@ -15,54 +19,98 @@ function SinalizacaoVeiculo() {
   const [horaServico, setHoraServico] = useState('');
   const hoje = new Date().toISOString().split('T')[0];
 
-  const handleSubmit = async (e) => {
-  e.preventDefault();
-  const token = localStorage.getItem('token');
+  // Buscar clienteId com base no user.id
+  useEffect(() => {
+    const fetchCliente = async () => {
+      try {
+        const response = await fetch(`https://ideiafix-back-end-1test.onrender.com/api/${user.id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-  if (!token) {
-    navigate('/register');
-    return;
-  }
+        if (!response.ok) throw new Error('Erro ao buscar cliente');
 
-  const payload = {
-    modelo,
-    tipoAdesivo,
-    altura,
-    unidadeAltura,
-    largura,
-    unidadeLargura,
-    dataServico,
-    horaServico
+        const data = await response.json();
+        const idCliente = data.Cliente?.id;
+
+        if (idCliente) {
+          setClienteId(idCliente);
+        } else {
+          alert('Cliente não encontrado');
+        }
+      } catch (error) {
+        console.error(error);
+        alert('Erro ao carregar dados do cliente');
+      }
+    };
+
+    if (user?.id && token) {
+      fetchCliente();
+    }
+  }, [user, token]);
+
+  const resetForm = () => {
+    setModelo('');
+    setTipoAdesivo('');
+    setAltura('');
+    setUnidadeAltura('');
+    setLargura('');
+    setUnidadeLargura('');
+    setDataServico('');
+    setHoraServico('');
   };
 
-  try {
-    const response = await fetch('http://localhost:3001/sinalizacao-veiculo', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify(payload)
-    });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    if (response.ok) {
-      setShowPopup(true);
-      setModelo('');
-      setTipoAdesivo('');
-      setAltura('');
-      setUnidadeAltura('');
-      setLargura('');
-      setUnidadeLargura('');
-      setDataServico('');
-      setHoraServico('');
-    } else {
-      console.error('Erro ao enviar dados:', await response.text());
+    if (!clienteId) {
+      alert("ID do cliente ainda não carregado.");
+      return;
     }
-  } catch (error) {
-    console.error('Erro de rede:', error);
-  }
-};
 
+    const materialId = 2; // ou outro ID válido
+    const servicoId = id;
+
+    const dados = {
+      clienteId,
+      servicoId: Number(servicoId),
+      materialId,
+      altura: Number(altura),
+      unidadeAltura,
+      largura: Number(largura),
+      unidadeLargura,
+      dataServico,
+      horaServico,
+      observacoes: '',
+      dadosExtras: {
+        tipoServico: 'Sinalização de Veículo',
+        modeloVeiculo: modelo,
+        tipoAdesivo,
+      },
+    };
+
+    try {
+      const response = await fetch('https://ideiafix-back-end-1test.onrender.com/orcamento', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(dados),
+      });
+
+      if (response.ok) {
+        setShowPopup(true);
+        resetForm();
+      } else {
+        alert('Erro ao enviar os dados. Verifique os campos e tente novamente.');
+      }
+    } catch (error) {
+      console.error('Erro na requisição:', error);
+      alert('Erro ao conectar com o servidor.');
+    }
+  };
 
   return (
     <>
@@ -97,53 +145,57 @@ function SinalizacaoVeiculo() {
           </select>
         </div>
 
-      <div className="form-section">
-        <p><strong>Informe as dimensões da área de aplicação</strong></p>
+        <div className="form-section">
+          <p><strong>Informe as dimensões da área de aplicação</strong></p>
 
-        <div className="form-group">
-          <label>Altura:</label>
-          <div className="input-row">
-            <input
-              type="text"
-              value={altura}
-              onChange={(e) => setAltura(e.target.value)}
-              required
-            />
-            <select
-              value={unidadeAltura}
-              onChange={(e) => setUnidadeAltura(e.target.value)}
-              required
-            >
-              <option value="">Unidade de medida</option>
-              <option value="mm">mm</option>
-              <option value="cm">cm</option>
-              <option value="m">m</option>
-            </select>
+          <div className="form-group">
+            <label>Altura:</label>
+            <div className="input-row">
+              <input
+                type="number"
+                value={altura}
+                onChange={(e) => setAltura(e.target.value)}
+                required
+                min="0"
+                step="any"
+              />
+              <select
+                value={unidadeAltura}
+                onChange={(e) => setUnidadeAltura(e.target.value)}
+                required
+              >
+                <option value="">Unidade de medida</option>
+                <option value="mm">mm</option>
+                <option value="cm">cm</option>
+                <option value="m">m</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label>Largura:</label>
+            <div className="input-row">
+              <input
+                type="number"
+                value={largura}
+                onChange={(e) => setLargura(e.target.value)}
+                required
+                min="0"
+                step="any"
+              />
+              <select
+                value={unidadeLargura}
+                onChange={(e) => setUnidadeLargura(e.target.value)}
+                required
+              >
+                <option value="">Unidade de medida</option>
+                <option value="mm">mm</option>
+                <option value="cm">cm</option>
+                <option value="m">m</option>
+              </select>
+            </div>
           </div>
         </div>
-
-        <div className="form-group">
-          <label>Largura:</label>
-          <div className="input-row">
-            <input
-              type="text"
-              value={largura}
-              onChange={(e) => setLargura(e.target.value)}
-              required
-            />
-            <select
-              value={unidadeLargura}
-              onChange={(e) => setUnidadeLargura(e.target.value)}
-              required
-            >
-              <option value="">Unidade de medida</option>
-              <option value="mm">mm</option>
-              <option value="cm">cm</option>
-              <option value="m">m</option>
-            </select>
-          </div>
-        </div>
-      </div>
 
         <div className="form-section">
           <p><strong>Data e hora do serviço</strong></p>
@@ -190,4 +242,3 @@ function SinalizacaoVeiculo() {
 }
 
 export default SinalizacaoVeiculo;
-

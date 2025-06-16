@@ -1,8 +1,12 @@
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useAuth } from '../context/AuthContext';
 
 function AdesivoParede() {
   const navigate = useNavigate();
+  const { id: servicoId } = useParams(); // pega id da url, como no outro
+  const { user, token } = useAuth();
+
   const [showPopup, setShowPopup] = useState(false);
 
   const [numParedes, setNumParedes] = useState('');
@@ -14,56 +18,104 @@ function AdesivoParede() {
   const [corAdesivo, setCorAdesivo] = useState('');
   const [dataServico, setDataServico] = useState('');
   const [horaServico, setHoraServico] = useState('');
-  const hoje = new Date().toISOString().split('T')[0]; // pega a data no formato aaaa-mm-dd
+  const [clienteId, setClienteId] = useState(null);
+
+  const hoje = new Date().toISOString().split('T')[0];
+
+  useEffect(() => {
+    const fetchCliente = async () => {
+      try {
+        const response = await fetch(`https://ideiafix-back-end-1test.onrender.com/api/${user.id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (!response.ok) throw new Error('Erro ao buscar cliente');
+
+        const data = await response.json();
+        const idCliente = data.Cliente?.id;
+        if (idCliente) {
+          setClienteId(idCliente);
+        } else {
+          alert('Cliente não encontrado');
+        }
+      } catch (error) {
+        console.error(error);
+        alert('Erro ao carregar dados do cliente');
+      }
+    };
+
+    if (user?.id && token) {
+      fetchCliente();
+    }
+  }, [user, token]);
+
+  const resetForm = () => {
+    setNumParedes('');
+    setAltura('');
+    setUnidadeAltura('');
+    setLargura('');
+    setUnidadeLargura('');
+    setTipoAdesivo('');
+    setCorAdesivo('');
+    setDataServico('');
+    setHoraServico('');
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem('token');
 
-    if (token) {
-      const dados = {
-        tipoServico: 'Adesivo de Parede',
-        numParedes,
-        altura,
-        unidadeAltura,
-        largura,
-        unidadeLargura,
-        tipoAdesivo,
-        corAdesivo,
-        dataServico,
-        horaServico,
-      };
+    if (!clienteId) {
+      alert('ID do cliente ainda não carregado.');
+      return;
+    }
 
-      try {
-        const response = await fetch('http://localhost:8081/servicos', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(dados),
-        });
-
-        if (response.ok) {
-          setShowPopup(true);
-          setNumParedes('');
-          setAltura('');
-          setUnidadeAltura('');
-          setLargura('');
-          setUnidadeLargura('');
-          setTipoAdesivo('');
-          setCorAdesivo('');
-          setDataServico('');
-          setHoraServico('');
-        } else {
-          alert('Erro ao enviar os dados. Verifique os campos e tente novamente.');
-        }
-      } catch (error) {
-        console.error('Erro na requisição:', error);
-        alert('Erro ao conectar com o servidor.');
-      }
-    } else {
+    if (!token) {
       navigate('/register');
+      return;
+    }
+
+    const materialId = 2; // ajuste se precisar
+    // servicoId já vem do params (url)
+
+    const dados = {
+      clienteId,
+      servicoId: Number(servicoId),
+      materialId,
+      altura: Number(altura),
+      unidadeAltura,
+      largura: Number(largura),
+      unidadeLargura,
+      dataServico,
+      horaServico,
+      observacoes: '',
+      dadosExtras: {
+        tipoServico: 'Adesivo de Parede',
+        tipoAdesivo,
+        numParedes: Number(numParedes),
+        corAdesivo,
+      },
+    };
+
+    try {
+      const response = await fetch('https://ideiafix-back-end-1test.onrender.com/orcamento', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(dados),
+      });
+
+      if (response.ok) {
+        setShowPopup(true);
+        resetForm();
+      } else {
+        alert('Erro ao enviar os dados. Verifique os campos e tente novamente.');
+      }
+    } catch (error) {
+      console.error('Erro na requisição:', error);
+      alert('Erro ao conectar com o servidor.');
     }
   };
 
@@ -111,55 +163,59 @@ function AdesivoParede() {
           />
         </div>
 
-      <div className="form-section">
-        <p><strong>Informe as dimensões da área de aplicação</strong></p>
+        <div className="form-section">
+          <p><strong>Informe as dimensões da área de aplicação</strong></p>
 
-        <div className="form-group">
-          <label>Altura:</label>
-          <div className="input-row">
-            <input
-              type="text"
-              value={altura}
-              onChange={(e) => setAltura(e.target.value)}
-              required
-              style={{ flex: '2' }}
-            />
-            <select
-              value={unidadeAltura}
-              onChange={(e) => setUnidadeAltura(e.target.value)}
-              required
-              style={{ flex: '1' }}
-            >
-              <option value="">Unidade de medida</option>
-              <option value="mm">mm</option>
-              <option value="cm">cm</option>
-              <option value="m">m</option>
-            </select>
+          <div className="form-group">
+            <label>Altura:</label>
+            <div className="input-row">
+              <input
+                type="number"
+                value={altura}
+                onChange={(e) => setAltura(e.target.value)}
+                required
+                style={{ flex: '2' }}
+                min="0"
+                step="any"
+              />
+              <select
+                value={unidadeAltura}
+                onChange={(e) => setUnidadeAltura(e.target.value)}
+                required
+                style={{ flex: '1' }}
+              >
+                <option value="">Unidade de medida</option>
+                <option value="mm">mm</option>
+                <option value="cm">cm</option>
+                <option value="m">m</option>
+              </select>
+            </div>
           </div>
-        </div>
-      </div>
 
-        <div className="form-group">
-          <label>Largura:</label>
-          <div className="input-row">
-            <input
-              type="text"
-              value={largura}
-              onChange={(e) => setLargura(e.target.value)}
-              required
-              style={{ flex: '2' }}
-            />
-            <select
-              value={unidadeLargura}
-              onChange={(e) => setUnidadeLargura(e.target.value)}
-              required
-              style={{ flex: '1' }}
-            >
-              <option value="">Unidade de medida</option>
-              <option value="mm">mm</option>
-              <option value="cm">cm</option>
-              <option value="m">m</option>
-            </select>
+          <div className="form-group">
+            <label>Largura:</label>
+            <div className="input-row">
+              <input
+                type="number"
+                value={largura}
+                onChange={(e) => setLargura(e.target.value)}
+                required
+                style={{ flex: '2' }}
+                min="0"
+                step="any"
+              />
+              <select
+                value={unidadeLargura}
+                onChange={(e) => setUnidadeLargura(e.target.value)}
+                required
+                style={{ flex: '1' }}
+              >
+                <option value="">Unidade de medida</option>
+                <option value="mm">mm</option>
+                <option value="cm">cm</option>
+                <option value="m">m</option>
+              </select>
+            </div>
           </div>
         </div>
 
