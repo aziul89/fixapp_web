@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; // importa o contexto
+import { useAuth } from '../context/AuthContext';
 import './AgendamentoDetail.css';
 
 function AgendamentoDetail() {
   const { id } = useParams();
-  const { token, isAuthenticated } = useAuth(); // pega token e estado de auth
+  const { token, isAuthenticated } = useAuth();
   const [agendamento, setAgendamento] = useState(null);
   const [novoStatus, setNovoStatus] = useState('');
   const [editando, setEditando] = useState(false);
@@ -41,7 +41,7 @@ function AgendamentoDetail() {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`, // inclui token aqui também
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ status: novoStatus }),
       });
@@ -76,6 +76,11 @@ function AgendamentoDetail() {
     dadosExtras,
   } = agendamento;
 
+  const nomeCliente = Cliente?.Usuario?.nome;
+  const emailCliente = Cliente?.Usuario?.email;
+  const telefoneCliente = Cliente?.Usuario?.telefone;
+  const endereco = Cliente?.endereco?.[0];
+
   return (
     <div className="detail-container">
       <h1>{servico?.nome}</h1>
@@ -85,6 +90,25 @@ function AgendamentoDetail() {
       </div>
 
       <div className="info">
+
+        <h2>Informações do Cliente</h2>
+        <p><strong>Nome:</strong> {nomeCliente}</p>
+        <p><strong>Email:</strong> {emailCliente}</p>
+        <p><strong>Telefone:</strong> {telefoneCliente}</p>
+
+        <h2>Endereço</h2>
+        {endereco ? (
+          <>
+            <p><strong>Rua:</strong> {endereco.rua}, {endereco.complemento}</p>
+            <p><strong>Bairro:</strong> {endereco.bairro}</p>
+            <p><strong>Cidade:</strong> {endereco.cidade} - {endereco.estado}</p>
+            <p><strong>CEP:</strong> {endereco.cep}</p>
+          </>
+        ) : (
+          <p>Endereço não informado</p>
+        )}
+
+        <h2>Detalhes do Serviço</h2>
         <p><strong>Tipo do Móvel:</strong> {dadosExtras?.tipoMovel}</p>
         <p><strong>Cor do Adesivo:</strong> {dadosExtras?.corAdesivo}</p>
         <p><strong>Modelo:</strong> {dadosExtras?.modeloAdesivo}</p>
