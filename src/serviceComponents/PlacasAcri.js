@@ -1,8 +1,12 @@
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useAuth } from '../context/AuthContext';
 
 function PlacaAcrilico() {
   const navigate = useNavigate();
+  const { user, token } = useAuth();
+  const { id } = useParams(); // servicoId vindo da URL
+  const [clienteId, setClienteId] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
 
   const [quantidade, setQuantidade] = useState('');
@@ -16,59 +20,101 @@ function PlacaAcrilico() {
   const [horaServico, setHoraServico] = useState('');
   const hoje = new Date().toISOString().split('T')[0];
 
-  const handleSubmit = async (e) => {
-  e.preventDefault();
-  const token = localStorage.getItem('token');
+  useEffect(() => {
+    const fetchCliente = async () => {
+      try {
+        const response = await fetch(`https://ideiafix-back-end-1test.onrender.com/api/${user.id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-  if (!token) {
-    navigate('/register');
-    return;
-  }
+        if (!response.ok) throw new Error('Erro ao buscar cliente');
+        const data = await response.json();
+        const idCliente = data.Cliente?.id;
 
-  const formData = new FormData();
-  formData.append('cor', cor);
-  formData.append('altura', altura);
-  formData.append('unidadeAltura', unidadeAltura);
-  formData.append('largura', largura);
-  formData.append('unidadeLargura', unidadeLargura);
-  formData.append('dataServico', dataServico);
-  formData.append('horaServico', horaServico);
-  formData.append('arquivo', arquivo); // precisa que backend aceite upload
-  formData.append('servico', 'Placa de Acrílico'); 
-  formData.append('cliente', 'Nome do cliente');
-
-  try {
-    const response = await fetch('https://seu-backend.com/agendamentos', {
-      method: 'POST',
-      body: formData,
-      headers: {
-        Authorization: `Bearer ${token}`
+        if (idCliente) {
+          setClienteId(idCliente);
+        } else {
+          alert('Cliente não encontrado');
+        }
+      } catch (error) {
+        console.error(error);
+        alert('Erro ao carregar dados do cliente');
       }
-    });
+    };
 
-    if (response.ok) {
-      setShowPopup(true);
-      setCor('');
-      setAltura('');
-      setUnidadeAltura('');
-      setLargura('');
-      setUnidadeLargura('');
-      setArquivo('');
-      setDataServico('');
-      setHoraServico('');
-    } else {
-      alert('Erro ao enviar agendamento.');
+    if (user?.id && token) {
+      fetchCliente();
     }
-  } catch (error) {
-    console.error('Erro no envio:', error);
-  }
-};
+  }, [user, token]);
+
+  const resetForm = () => {
+    setQuantidade('');
+    setCor('');
+    setAltura('');
+    setUnidadeAltura('');
+    setLargura('');
+    setUnidadeLargura('');
+    setArquivo('');
+    setDataServico('');
+    setHoraServico('');
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!clienteId) {
+      alert("ID do cliente ainda não carregado.");
+      return;
+    }
+
+    const dados = {
+      clienteId,
+      servicoId: Number(id),
+      materialId: 2, // suponha que o material de acrílico tem ID 3
+      largura: Number(largura),
+      unidadeLargura,
+      altura: Number(altura),
+      unidadeAltura,
+      dataServico,
+      horaServico,
+      observacoes: '', 
+      dadosExtras: {
+        tipoServico: 'Placa de Acrílico',
+        quantidade: Number(quantidade),
+        cor,
+        nomeArquivo: arquivo?.name || '', // opcionalmente envie só o nome
+      },
+    };
+
+    try {
+      const response = await fetch('https://ideiafix-back-end-1test.onrender.com/orcamento', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(dados),
+      });
+
+      if (response.ok) {
+        setShowPopup(true);
+        resetForm();
+      } else {
+        alert('Erro ao enviar agendamento.');
+      }
+    } catch (error) {
+      console.error('Erro no envio:', error);
+      alert('Erro ao conectar com o servidor.');
+    }
+  };
 
   return (
     <>
       <form onSubmit={handleSubmit} className="service-form">
         <h3>Preencha os dados abaixo:</h3>
-        
+
         <div className="form-group">
           <label>Quantidade de placas:</label>
           <input
@@ -90,7 +136,7 @@ function PlacaAcrilico() {
         </div>
 
         <div className="form-group">
-          <label>Upload da logomarca:</label>
+          <label>Upload da logomarca (nome do arquivo):</label>
           <div className="file-upload">
             <label htmlFor="file-upload" className="upload-button">
               Selecionar arquivo
@@ -99,57 +145,61 @@ function PlacaAcrilico() {
               id="file-upload"
               type="file"
               onChange={(e) => setArquivo(e.target.files[0])}
-              required
+          
             />
             {arquivo && <span className="file-name">{arquivo.name}</span>}
           </div>
         </div>
 
-      <div className="form-section">
-        <p><strong>Informe as dimensões do objeto</strong></p>
+        <div className="form-section">
+          <p><strong>Informe as dimensões do objeto</strong></p>
 
-        <div className="form-group">
-          <label>Altura:</label>
-          <div className="input-row">
-            <input
-              type="text"
-              value={altura}
-              onChange={(e) => setAltura(e.target.value)}
-              required
-            />
-            <select
-              value={unidadeAltura}
-              onChange={(e) => setUnidadeAltura(e.target.value)}
-              required
-            >
-              <option value="">Unidade de medida</option>
-              <option value="mm">mm</option>
-              <option value="cm">cm</option>
-              <option value="m">m</option>
-            </select>
+          <div className="form-group">
+            <label>Altura:</label>
+            <div className="input-row">
+              <input
+                type="number"
+                value={altura}
+                onChange={(e) => setAltura(e.target.value)}
+                required
+                min="0"
+                step="any"
+              />
+              <select
+                value={unidadeAltura}
+                onChange={(e) => setUnidadeAltura(e.target.value)}
+                required
+              >
+                <option value="">Unidade de medida</option>
+                <option value="mm">mm</option>
+                <option value="cm">cm</option>
+                <option value="m">m</option>
+              </select>
+            </div>
           </div>
-        </div>
-      </div>
 
-        <div className="form-group">
-          <label>Largura:</label>
-          <div className="input-row">
-            <input
-              type="text"
-              value={largura}
-              onChange={(e) => setLargura(e.target.value)}
-              required
-            />
-            <select
-              value={unidadeLargura}
-              onChange={(e) => setUnidadeLargura(e.target.value)}
-              required
-            >
-              <option value="">Unidade de medida</option>
-              <option value="mm">mm</option>
-              <option value="cm">cm</option>
-              <option value="m">m</option>
-            </select>
+          <div className="form-group">
+            <label>Largura:</label>
+            <div className="input-row">
+              <input
+                type="number"
+                value={largura}
+                onChange={(e) => setLargura(e.target.value)}
+                required
+                min="0"
+                step="any"
+              />
+              <select
+                value={unidadeLargura}
+                onChange={(e) => setUnidadeLargura(e.target.value)}
+                required
+              >
+                <option value="">Unidade de medida</option>
+                <option value="mm">mm</option>
+                <option value="cm">cm</option>
+                <option value="m">m</option>
+              </select>
+            </div>
           </div>
         </div>
 

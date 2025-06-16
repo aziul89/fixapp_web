@@ -1,8 +1,12 @@
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useAuth } from '../context/AuthContext';
 
 function PlacaSinalizacao() {
   const navigate = useNavigate();
+  const { id } = useParams(); // servicoId
+  const { user, token } = useAuth();
+  const [clienteId, setClienteId] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
 
   const [material, setMaterial] = useState('');
@@ -11,26 +15,99 @@ function PlacaSinalizacao() {
   const [unidadeAltura, setUnidadeAltura] = useState('');
   const [largura, setLargura] = useState('');
   const [unidadeLargura, setUnidadeLargura] = useState('');
-  const [arquivo, setArquivo] = useState('');
+  const [arquivo, setArquivo] = useState(null);
   const [dataServico, setDataServico] = useState('');
   const [horaServico, setHoraServico] = useState('');
   const hoje = new Date().toISOString().split('T')[0];
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const token = localStorage.getItem('token');
+  useEffect(() => {
+    const fetchCliente = async () => {
+      try {
+        const response = await fetch(`https://ideiafix-back-end-1test.onrender.com/api/${user.id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-    if (token) {
-      setShowPopup(true);
-      setMaterial('');
-      setQuantidade('');
-      setAltura('');
-      setUnidadeAltura('');
-      setLargura('');
-      setUnidadeLargura('');
-      setArquivo('');
-    } else {
-      navigate('/register');
+        if (!response.ok) throw new Error('Erro ao buscar cliente');
+
+        const data = await response.json();
+        const idCliente = data.Cliente?.id;
+
+        if (idCliente) {
+          setClienteId(idCliente);
+        } else {
+          alert('Cliente não encontrado');
+        }
+      } catch (error) {
+        console.error(error);
+        alert('Erro ao carregar dados do cliente');
+      }
+    };
+
+    if (user?.id && token) {
+      fetchCliente();
+    }
+  }, [user, token]);
+
+  const resetForm = () => {
+    setMaterial('');
+    setQuantidade('');
+    setAltura('');
+    setUnidadeAltura('');
+    setLargura('');
+    setUnidadeLargura('');
+    setArquivo(null);
+    setDataServico('');
+    setHoraServico('');
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!clienteId) {
+      alert("ID do cliente ainda não carregado.");
+      return;
+    }
+
+    const dados = {
+      clienteId,
+      servicoId: Number(id),
+      materialId:3 , // ajuste conforme seu banco
+      largura: Number(largura),
+      unidadeLargura,
+      altura: Number(altura),
+      unidadeAltura,
+      dataServico,
+      horaServico,
+      observacoes: '',
+      dadosExtras: {
+        tipoServico: 'Placa de Sinalização',
+        tipoMaterial: material,
+        quantidade: Number(quantidade),
+        nomeArquivo: arquivo?.name || '',
+      },
+    };
+
+    try {
+      const response = await fetch('https://ideiafix-back-end-1test.onrender.com/orcamento', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(dados),
+      });
+
+      if (response.ok) {
+        setShowPopup(true);
+        resetForm();
+      } else {
+        alert('Erro ao enviar os dados. Verifique os campos e tente novamente.');
+      }
+    } catch (error) {
+      console.error('Erro na requisição:', error);
+      alert('Erro ao conectar com o servidor.');
     }
   };
 
@@ -41,11 +118,7 @@ function PlacaSinalizacao() {
 
         <div className="form-group">
           <label>Material:</label>
-          <select
-            value={material}
-            onChange={(e) => setMaterial(e.target.value)}
-            required
-          >
+          <select value={material} onChange={(e) => setMaterial(e.target.value)} required>
             <option value="">Selecione</option>
             <option>PVC</option>
             <option>Acrílico</option>
@@ -63,50 +136,54 @@ function PlacaSinalizacao() {
         </div>
 
         <div className="form-section">
-        <p><strong>Informe as dimensões do objeto</strong></p>
+          <p><strong>Informe as dimensões do objeto</strong></p>
 
-        <div className="form-group">
-          <label>Altura:</label>
-          <div className="input-row">
-            <input
-              type="text"
-              value={altura}
-              onChange={(e) => setAltura(e.target.value)}
-              required
-            />
-            <select
-              value={unidadeAltura}
-              onChange={(e) => setUnidadeAltura(e.target.value)}
-              required
-            >
-              <option value="">Unidade de medida</option>
-              <option value="mm">mm</option>
-              <option value="cm">cm</option>
-              <option value="m">m</option>
-            </select>
+          <div className="form-group">
+            <label>Altura:</label>
+            <div className="input-row">
+              <input
+                type="number"
+                value={altura}
+                onChange={(e) => setAltura(e.target.value)}
+                required
+                min="0"
+                step="any"
+              />
+              <select
+                value={unidadeAltura}
+                onChange={(e) => setUnidadeAltura(e.target.value)}
+                required
+              >
+                <option value="">Unidade de medida</option>
+                <option value="mm">mm</option>
+                <option value="cm">cm</option>
+                <option value="m">m</option>
+              </select>
+            </div>
           </div>
-        </div>
-      </div>
 
-        <div className="form-group">
-          <label>Largura:</label>
-          <div className="input-row">
-            <input
-              type="text"
-              value={largura}
-              onChange={(e) => setLargura(e.target.value)}
-              required
-            />
-            <select
-              value={unidadeLargura}
-              onChange={(e) => setUnidadeLargura(e.target.value)}
-              required
-            >
-              <option value="">Unidade de medida</option>
-              <option value="mm">mm</option>
-              <option value="cm">cm</option>
-              <option value="m">m</option>
-            </select>
+          <div className="form-group">
+            <label>Largura:</label>
+            <div className="input-row">
+              <input
+                type="number"
+                value={largura}
+                onChange={(e) => setLargura(e.target.value)}
+                required
+                min="0"
+                step="any"
+              />
+              <select
+                value={unidadeLargura}
+                onChange={(e) => setUnidadeLargura(e.target.value)}
+                required
+              >
+                <option value="">Unidade de medida</option>
+                <option value="mm">mm</option>
+                <option value="cm">cm</option>
+                <option value="m">m</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -120,7 +197,7 @@ function PlacaSinalizacao() {
               id="file-upload"
               type="file"
               onChange={(e) => setArquivo(e.target.files[0])}
-              required
+
             />
             {arquivo && <span className="file-name">{arquivo.name}</span>}
           </div>
