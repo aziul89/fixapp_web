@@ -58,7 +58,14 @@ function AgendamentoDetail() {
     }
   };
 
-  if (!agendamento) return <div>Carregando...</div>;
+  if (!agendamento) {
+    return (
+      <div className="spinner-container">
+        <div className="spinner"></div>
+        <p>Carregando...</p>
+      </div>
+    );
+  }
 
   const {
     servico,
@@ -85,38 +92,77 @@ function AgendamentoDetail() {
       </div>
 
       <div className="info">
-        <p><strong>Tipo do Móvel:</strong> {dadosExtras?.tipoMovel}</p>
-        <p><strong>Cor do Adesivo:</strong> {dadosExtras?.corAdesivo}</p>
-        <p><strong>Modelo:</strong> {dadosExtras?.modeloAdesivo}</p>
-        <p><strong>Profundidade:</strong> {dadosExtras?.profundidade} {dadosExtras?.unidadeProfundidade}</p>
-        <p><strong>Largura:</strong> {largura} {unidadeLargura}</p>
-        <p><strong>Altura:</strong> {altura} {unidadeAltura}</p>
-        <p><strong>Material:</strong> {material?.nome}</p>
-        <p><strong>Preço Unitário:</strong> R$ {precoUnitario.toFixed(2)}</p>
-        <p><strong>Valor Total:</strong> R$ {valorTotal.toFixed(2)}</p>
-        <p><strong>Data:</strong> {new Date(dataServico).toLocaleDateString("pt-BR")}</p>
-        <p><strong>Horário:</strong> {horaServico}</p>
-
-        <p><strong>Status:</strong></p>
-        {editando ? (
-          <>
-            <select value={novoStatus} onChange={handleStatusChange}>
-              <option value="PENDENTE">PENDENTE</option>
-              <option value="CONFIRMADO">CONFIRMADO</option>
-              <option value="CANCELADO">CANCELADO</option>
-              <option value="REJEITADO">REJEITADO</option>
-            </select>
-            <button onClick={salvarStatus}>Salvar</button>
-            <button onClick={() => setEditando(false)}>Cancelar</button>
-          </>
-        ) : (
-          <>
-            <p>{agendamento.status}</p>
-            <button onClick={() => setEditando(true)}>Editar Status</button>
-          </>
+        {dadosExtras?.tipoMovel && (
+          <p><strong>Tipo do Móvel:</strong> {dadosExtras.tipoMovel}</p>
         )}
 
-        <p><strong>Observações:</strong> {observacoes || "Nenhuma"}</p>
+        {dadosExtras?.corAdesivo && (
+          <p><strong>Cor do Adesivo:</strong> {dadosExtras.corAdesivo}</p>
+        )}
+
+        {dadosExtras?.modeloAdesivo && (
+          <p><strong>Modelo:</strong> {dadosExtras.modeloAdesivo}</p>
+        )}
+
+        {dadosExtras?.profundidade && (
+          <p><strong>Profundidade:</strong> {dadosExtras.profundidade} {dadosExtras.unidadeProfundidade}</p>
+        )}
+
+        {largura && (
+          <p><strong>Largura:</strong> {largura} {unidadeLargura}</p>
+        )}
+
+        {altura && (
+          <p><strong>Altura:</strong> {altura} {unidadeAltura}</p>
+        )}
+
+        {material?.nome && (
+          <p><strong>Material:</strong> {material.nome}</p>
+        )}
+
+        {precoUnitario !== null && precoUnitario !== undefined && (
+          <p><strong>Preço Unitário:</strong> R$ {precoUnitario.toFixed(2)}</p>
+        )}
+
+        {valorTotal !== null && valorTotal !== undefined && (
+          <p><strong>Valor Total:</strong> R$ {valorTotal.toFixed(2)}</p>
+        )}
+
+        {dataServico && (
+          <p><strong>Data:</strong> {new Date(dataServico).toLocaleDateString("pt-BR")}</p>
+        )}
+
+        {horaServico && (
+          <p><strong>Horário:</strong> {horaServico}</p>
+        )}
+
+
+        <div className="status-line">
+          <strong>Status:</strong>
+          {editando ? (
+            <>
+              <select value={novoStatus} onChange={handleStatusChange}>
+                <option value="PENDENTE">PENDENTE</option>
+                <option value="CONFIRMADO">CONFIRMADO</option>
+                <option value="CANCELADO">CANCELADO</option>
+                <option value="REJEITADO">REJEITADO</option>
+              </select>
+              <button className="btn-save" onClick={salvarStatus}>Salvar</button>
+              <button className="btn-cancel" onClick={() => setEditando(false)}>Cancelar</button>
+            </>
+          ) : (
+            <>
+              <span>{agendamento.status}</span>
+              <button className="btn-default" onClick={() => setEditando(true)}>Editar</button>
+            </>
+          )}
+        </div>
+
+
+        {observacoes && observacoes.trim() !== '' && (
+          <p><strong>Observações:</strong> {observacoes}</p>
+        )}
+
       </div>
     </div>
   );

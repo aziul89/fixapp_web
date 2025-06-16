@@ -33,7 +33,7 @@ function Profile() {
           nome: data.nome,
           email: data.email,
           telefone: data.telefone,
-          cpf: "", // Atualize caso backend retorne CPF
+      //  cpf: "", // Atualize caso backend retorne CPF
         };
 
         setCliente(clienteData);
@@ -105,7 +105,7 @@ function Profile() {
           <p><strong>Nome:</strong> {cliente.nome}</p>
           <p><strong>Email:</strong> {cliente.email}</p>
           <p><strong>Telefone:</strong> {cliente.telefone}</p>
-          <p><strong>CPF:</strong> {cliente.cpf}</p>
+          {/*<p><strong>CPF:</strong> {cliente.cpf}</p> */}
         </section>
 
         <section className="profile-section">

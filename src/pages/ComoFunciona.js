@@ -31,10 +31,6 @@ function ComoFunciona() {
             </tr>
             <tr>
               <td>✅</td>
-              <td><strong>Pague com segurança:</strong> Aguarde a confirmação do serviço e finalize com pagamento via cartão de crédito, débito ou Pix.</td>
-            </tr>
-            <tr>
-              <td>✅</td>
               <td><strong>Conte com o FixBot:</strong> Nosso assistente virtual tira todas as suas dúvidas em tempo real!</td>
             </tr>
           </tbody>

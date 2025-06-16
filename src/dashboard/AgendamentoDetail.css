@@ -1,19 +1,129 @@
 .detail-container {
-  padding: 20px;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", sans-serif;
+  color: #333;
+  transition: all 0.3s ease-in-out;
+}
+
+.detail-container h1 {
+  font-size: 28px;
+  color: #222;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 .imagens {
   display: flex;
-  gap: 10px;
+  justify-content: center;
   margin-bottom: 20px;
 }
 
 .imagens img {
-  width: 150px;
+  max-width: 100%;
   height: auto;
-  border-radius: 5px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 16px;
 }
 
 .info p {
-  margin: 5px 0;
+  margin: 0;
+  line-height: 1.5;
+}
+
+strong {
+  color: #555;
+}
+
+/* Spinner */
+.spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  text-align: center;
+  gap: 16px;
+}
+
+.spinner {
+  border: 6px solid #fc3f75c1;
+  border-top: 6px solid #1F252C;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinner-container p {
+  font-size: 18px;
+  color: #333;
+}
+
+.status-line {
+  display: flex;
+  align-items: center;
+  gap: 1rem; 
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.status-line select,
+.status-line span {
+  margin-top: 0;
+}
+
+.status-line .btn-default {
+  background-color: #FC3F75;
+  color: white;
+}
+
+.status-line .btn-save {
+  background-color: #28a745;
+  color: white;
+}
+
+.status-line .btn-cancel {
+  background-color: #dc3545;
+  color: white;
+}
+
+.status-line button:hover {
+  opacity: 0.85;
+}
+
+@media (max-width: 600px) {
+  .detail-container {
+    padding: 20px;
+  }
+
+  .detail-container h1 {
+    font-size: 22px;
+  }
+
+  button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  button:nth-of-type(2) {
+    margin-right: 0;
+  }
 }
