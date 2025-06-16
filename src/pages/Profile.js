@@ -21,14 +21,10 @@ function Profile() {
     const fetchCliente = async () => {
       try {
         const response = await fetch(`https://ideiafix-back-end-1test.onrender.com/api/${user.id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         });
 
-        if (!response.ok) {
-          throw new Error("Erro ao buscar dados do cliente");
-        }
+        if (!response.ok) throw new Error("Erro ao buscar dados do cliente");
 
         const data = await response.json();
 
@@ -37,15 +33,16 @@ function Profile() {
           nome: data.nome,
           email: data.email,
           telefone: data.telefone,
-          cpf: "", // Preencha se o backend trouxer
+          cpf: "", // Atualize caso backend retorne CPF
         };
 
         setCliente(clienteData);
 
-        const clienteId = data.Cliente?.id;
-if (clienteId) {
-  fetchEndereco(clienteId);
-}
+        const clienteId = data.Cliente?.id || data.id; // tentar pegar id do cliente correto
+        if (clienteId) {
+          fetchEndereco(clienteId);
+          fetchServicos(clienteId);
+        }
       } catch (error) {
         console.error(error);
         alert("Erro ao carregar cliente");
@@ -53,28 +50,36 @@ if (clienteId) {
     };
 
     const fetchEndereco = async (clienteId) => {
-       console.log("clienteId recebido:", clienteId); 
       try {
         const response = await fetch(`https://ideiafix-back-end-1test.onrender.com/endere/cliente/${clienteId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         });
 
-        if (!response.ok) {
-          throw new Error("Erro ao buscar endereço");
-        }
+        if (!response.ok) throw new Error("Erro ao buscar endereço");
 
         const data = await response.json();
 
-        if (data.length > 0) {
-          setEndereco(data[0]); // Pega o primeiro endereço da lista
-        } else {
-          setEndereco({});
-        }
+        setEndereco(data.length > 0 ? data[0] : {});
       } catch (error) {
         console.error(error);
         alert("Erro ao carregar endereço");
+      }
+    };
+
+    const fetchServicos = async (clienteId) => {
+      try {
+        const response = await fetch(`https://ideiafix-back-end-1test.onrender.com/orcamento/cliente/${clienteId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (!response.ok) throw new Error("Erro ao buscar serviços");
+
+        const data = await response.json();
+
+        setServicos(data);
+      } catch (error) {
+        console.error(error);
+        alert("Erro ao carregar serviços");
       }
     };
 
@@ -118,11 +123,25 @@ if (clienteId) {
           <h2>Histórico de Serviços</h2>
           {servicos.length > 0 ? (
             <ul>
-              {servicos.map((servico) => (
-                <li key={servico.id}>
-                  <strong>{servico.nome}</strong> - {servico.data} ({servico.status})
-                </li>
-              ))}
+              {servicos.map((servico) => {
+                // dataServico vem no JSON
+                const dataFormatada = servico.dataServico
+                  ? new Date(servico.dataServico).toLocaleDateString("pt-BR", {
+                      day: "2-digit",
+                      month: "2-digit",
+                      year: "numeric",
+                    })
+                  : "Data não informada";
+
+                // nome do serviço dentro de dadosExtras.tipoServico
+                const nomeServico = servico.dadosExtras?.tipoServico || "Serviço sem nome";
+
+                return (
+                  <li key={servico.id}>
+                    <strong>{nomeServico}</strong> - {dataFormatada} ({servico.status || "Status desconhecido"})
+                  </li>
+                );
+              })}
             </ul>
           ) : (
             <p>Nenhum serviço registrado ainda.</p>
