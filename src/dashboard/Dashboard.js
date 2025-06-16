@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; // importa o contexto
+import { useAuth } from '../context/AuthContext';
 import './Dashboard.css';
 
 function Dashboard() {
   const [agendamentos, setAgendamentos] = useState([]);
   const [filtroStatus, setFiltroStatus] = useState("TODOS");
+  const [ordem, setOrdem] = useState("maisRecente");
   const navigate = useNavigate();
-  const { token, isAuthenticated } = useAuth(); // pega token
+  const { token, isAuthenticated } = useAuth();
 
   useEffect(() => {
     if (!isAuthenticated) return;
@@ -32,6 +33,21 @@ function Dashboard() {
     navigate(`/agendamentos/${id}`);
   };
 
+  const getStatusColor = (status) => {
+    switch (status) {
+      case "PENDENTE":
+        return "#FFA500"; 
+      case "CONFIRMADO":
+        return "#32CD32"; 
+      case "CANCELADO":
+        return "#FF6347"; 
+      case "REJEITADO":
+        return "#808080"; 
+      default:
+        return "#000"; 
+    }
+  };
+
   return (
     <div className="dashboard-container">
       <h1 className="dashboard-title">Agendamentos</h1>
@@ -49,8 +65,17 @@ function Dashboard() {
           <option value="CANCELADO">Cancelado</option>
           <option value="REJEITADO">Rejeitado</option>
         </select>
-      </div>
 
+        <label htmlFor="ordem">Ordenar por:</label>
+        <select
+          id="ordem"
+          value={ordem}
+          onChange={(e) => setOrdem(e.target.value)}
+        >
+          <option value="maisRecente">Mais recente</option>
+          <option value="menosRecente">Menos recente</option>
+        </select>
+      </div>
 
       <div className="dashboard-table">
         <div className="dashboard-row dashboard-header">
@@ -76,23 +101,28 @@ function Dashboard() {
         ) : (
           agendamentos
             .filter((item) => filtroStatus === "TODOS" || item.status === filtroStatus)
+            .sort((a, b) => {
+              const dataA = new Date(a.dataServico);
+              const dataB = new Date(b.dataServico);
+              return ordem === "maisRecente" ? dataB - dataA : dataA - dataB;
+            })
             .map((item) => (
-
-            <div
-              className="dashboard-row dashboard-clickable"
-              key={item.id}
-              onClick={() => handleClick(item.id)}
-            >
-              <span>{item.Cliente?.id}</span>
-              <span>{item.servico?.nome}</span>
-              <span>{new Date(item.dataServico).toLocaleDateString('pt-BR')}</span>
-              <span>{item.horaServico}</span>
-              <span>{item.status}</span>
-            </div>
-          ))
+              <div
+                className="dashboard-row dashboard-clickable"
+                key={item.id}
+                onClick={() => handleClick(item.id)}
+              >
+                <span>{item.Cliente?.id}</span>
+                <span>{item.servico?.nome}</span>
+                <span>{new Date(item.dataServico).toLocaleDateString('pt-BR')}</span>
+                <span>{item.horaServico}</span>
+                <span style={{ color: getStatusColor(item.status), fontWeight: 'bold' }}>
+                  {item.status}
+                </span>
+              </div>
+            ))
         )}
       </div>
-
     </div>
   );
 }
